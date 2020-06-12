@@ -1,215 +1,160 @@
-<h1>ABOUT</h1>
-<p>此內容管理系統以 <a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> 作為 submodule 運作, 可以選定對應的版本運作, cmsimde 可以持續改版, 不會影響之前設為 submodule, 使用舊版 cmsimde 模組的內容管理相關運作.</p>
-<h4>利用 cmsimde 建立靜態網誌方法:</h4>
-<p>1. 在 github 建立倉儲, git clone 到近端</p>
-<p>2. 參考 <a href="https://github.com/mdecourse/newcms">https://github.com/mdecourse/newcms</a>, 加入除了 cmsimde 目錄外的所有內容</p>
-<p>以 git submodule add <a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> cmsimde</p>
-<p>建立 cmsimde 目錄, 並從 github 取下子模組內容.</p>
-<p>3.在近端維護時, 更換目錄到倉儲中的 cmsimde, 以 python wsgi.py 啟動近端網際伺服器.</p>
-<p>動態內容編輯完成後, 以 generate_pages 轉為靜態內容, 以 git add commit 及 push 將內容推到遠端.</p>
-<p>4. 之後若要以 git clone 取下包含 submodule 的所有內容, 執行:</p>
-<p>git clone --recurse-submodules <a href="https://github.com/mdecourse/newcms.git">https://github.com/mdecourse/newcms.git</a></p>
-<h1>Develop</h1>
-<p><a href="https://github.com/mdecourse/cmsimde">https://github.com/mdecourse/cmsimde</a> 的開發, 可以在一個目錄中放入 cmsimde, 然後將 up_dir 中的內容放到與 cmsimde 目錄同位階的地方, 使用 command 進入 cmsimde 目錄, 執行 python wsgi.py, 就可以啟動, 以瀏覽器 https://localhost:9443 就可以連接, 以 admin 作為管理者密碼, 就可以登入維護內容.</p>
-<p>cmsimde 的開發採用 Leo Editor, 開啟 cmsimde 目錄中的 cmsimde.leo 就可以進行程式修改, 結束後, 若要保留網際內容, 只要將 cmsimde 外部的內容倒回 up_dir 目錄中即可後續對 cmsimde 遠端倉儲進行改版.</p>
-<p>init.py 位於  up_dir 目錄, 可以設定 site_title 與 uwsgi 等變數.</p>
-<p></p>
-<h1>網際內容管理筆記</h1>
-<p><span>【2001:288:6004:17::53】:3128</span><br/><span>140.130.17.53:3128</span><br/><span>140.130.17.254（系gateway 通道）</span><br/><span>140.130.1.*（校主幹）</span><br/><span>NAT network address translation </span><br/><span>internal network (內部網路）192.168.*</span><br/><span>IP address mapping 對應</span><br/><span>router 路由器</span><br/><span>route 路徑</span><br/><span>remote login 遠端登入</span><br/><br/><span>packet封包</span><br/><span>【2001：288：6004：17::53】：3128</span><br/><br/><span>中華電信 dns server </span><br/><span>2001:b000:168::1</span><br/><span>dns ==domain name server 符號名稱伺服器</span><br/><br/><span>www.nfu.edu.tw==ipv4/ipv6 address</span><br/><br/><span>client &lt;-&gt;server</span><br/><span>WWW</span><br/><span>brower&lt;-&gt;WWW server</span><br/><span>http==hypertext transfer protocol 超文件傳輸協定</span><br/><span>sftp client &lt;-&gt;sftp server </span><br/><span>Afro ==secure file transfer protocol 安全模式下的檔案傳輸協定</span><br/><br/><br/><span>TYPES OF COMPUTER</span><br/><span>1.super computer 超級電腦</span><br/><span>2.mainframe 伺服器主機（cluster叢集）</span><br/><span>3.server 伺服器（實地、虛擬）</span><br/><span>4.personal computer</span><br/><span>5.microcontroler</span><br/><span>6.mobile phone</span><br/><br/><span>batch computation (批次運算)</span><br/><br/><span>0~255==2**8</span><br/><br/><br/><span>tcp/ip ==transmision control protocol/internet protocol</span></p>
-<h1><span>W9</span></h1>
-<h2><span>電腦軟硬體設備簡介</span></h2>
-<h3>硬體</h3>
-<p><span>1機殼</span></p>
-<p><span>2CPU</span></p>
-<p><span>3POWER</span></p>
-<p><span>4主機板</span></p>
-<p><span>5VGA</span></p>
-<p><span>6音效卡</span></p>
-<p><span>7網路卡</span></p>
-<p><span>8RAM</span></p>
-<p><span>9硬碟</span></p>
-<p><span>10光碟機</span></p>
-<p><span>11軟碟機</span></p>
-<h3><span>軟體</span></h3>
-<h4>系統軟體</h4>
-<p>DOS</p>
-<p>WINDOWS</p>
-<p>Unix</p>
-<p>Linu</p>
-<h4>應用軟體</h4>
-<p>word</p>
-<p>ExceI</p>
-<p>PPT</p>
-<p>Flash</p>
-<h2><span>網路架構與設定簡介</span></h2>
-<p><span>1.進到cmsimde</span></p>
-<p><span>2.用python開啟</span></p>
-<p><span>3.更改簡介</span></p>
-<p><span>4.轉為靜態</span></p>
-<p><span>5.PUSH</span></p>
-<h1><span>W10</span></h1>
-<p>1. 下載 Putty 工具組</p>
-<p><span>從 </span><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/" rel="nofollow">https://www.chiark.greenend.org.uk/~sgtatham/putty/</a><span><span> </span>下載一般版, 或從<span> </span></span><a href="http://jakub.kotrla.net/putty/" rel="nofollow">http://jakub.kotrla.net/putty/</a><span><span> </span>下載特殊的可攜版本.</span></p>
-<p><span>2. 利用 y:\portablegit\bin\sh.exe 進入 shell 命令環境後, 以 </span></p>
-<div>
-<div class="syntaxhighlighter js" id="highlighter_42663">
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-<td class="gutter">
-<div class="line number1 index0 alt2">1</div>
-</td>
-<td class="code">
-<div class="container">
-<div class="line number1 index0 alt2"><code class="js plain">ssh-keygen -t rsa -b 4096 -C </code><code class="js string">"使用者學號"</code></div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>在 /y/home/.ssh 目錄下建立 id_rsa 與 id_rsa.pub 等 private key 與 public key</p>
-<p>之後以 SciTE 開啟 id_rsa.pub 後, 將此 public key 的內容, 以新增添加到 Github.com 帳號下 personal settings -&gt; SSH and GPG keys 頁面下.</p>
-<p>3. 接下來要利用 puttygen.exe 將 id_rsa 轉為 Putty 可以解讀的 .ppk 格式, 並修改隨身系統的啟動批次檔案, 指定利用 putty 目錄下的 plink 執行 git 指令的網路代理設定.</p>
-<div>
-<div class="syntaxhighlighter js" id="highlighter_771913">
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-<td class="gutter">
-<div class="line number1 index0 alt2">1</div>
-<div class="line number2 index1 alt1">2</div>
-<div class="line number3 index2 alt2">3</div>
-<div class="line number4 index3 alt1">4</div>
-</td>
-<td class="code">
-<div class="container">
-<div class="line number1 index0 alt2"><code class="js plain">修改啟動的 start.bat 加入下列設定:</code></div>
-<div class="line number2 index1 alt1"> </div>
-<div class="line number3 index2 alt2"><code class="js plain">set GIT_HOME=%Disk%:\portablegit\bin\</code></div>
-<div class="line number4 index3 alt1"><code class="js plain">set GIT_SSH=%Disk%:\putty\plink.exe</code></div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>4. 利用 puttygen.exe 載入第二步驟所建立的 private key, 也就是 id_rsa.</p>
-<p>開啟 puttygen 之後, 以右下方的 load 載入 id_rsa, 成功載入後, 利用 save private key 按鈕, 將已經轉為 putty 格式的 .ppk 存檔. 此一 .ppk 檔案必須在設定 putty 中 github.com session 時, 在 Connection-&gt;SSH-&gt;Auth 項目下, 將轉檔後的 .ppk 指向 private key file for authentication 欄位. </p>
-<p>並在 Connection-&gt;Proxy 項目下, 指定 Proxy type: HTTP, 並將 IPv6 代理主機設為 ::53 或 ::42 埠號設為 3128.</p>
-<p>5. 之後確定 home 下的 .ssh 目錄中的 config 設定檔案為:</p>
-<div>
-<div class="syntaxhighlighter js" id="highlighter_182748">
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-<td class="gutter">
-<div class="line number1 index0 alt2">1</div>
-<div class="line number2 index1 alt1">2</div>
-<div class="line number3 index2 alt2">3</div>
-<div class="line number4 index3 alt1">4</div>
-<div class="line number5 index4 alt2">5</div>
-<div class="line number6 index5 alt1">6</div>
-<div class="line number7 index6 alt2">7</div>
-<div class="line number8 index7 alt1">8</div>
-<div class="line number9 index8 alt2">9</div>
-<div class="line number10 index9 alt1">10</div>
-<div class="line number11 index10 alt2">11</div>
-<div class="line number12 index11 alt1">12</div>
-<div class="line number13 index12 alt2">13</div>
-<div class="line number14 index13 alt1">14</div>
-<div class="line number15 index14 alt2">15</div>
-<div class="line number16 index15 alt1">16</div>
-<div class="line number17 index16 alt2">17</div>
-<div class="line number18 index17 alt1">18</div>
-</td>
-<td class="code">
-<div class="container">
-<div class="line number1 index0 alt2"><code class="js preprocessor"># no proxy at home</code></div>
-<div class="line number2 index1 alt1"><code class="js preprocessor">#ProxyCommand y:/PortableGit/mingw64/bin/connect.exe -H proxy.mde.nfu.edu.tw:3128 %h %p</code></div>
-<div class="line number3 index2 alt2"><code class="js preprocessor"># set git_ssh=y:/putty/plink.exe with auth under putty github.com session setup</code></div>
-<div class="line number4 index3 alt1"><code class="js plain">ProxyCommand y:/putty/plink.exe github.com %h %p</code></div>
-<div class="line number5 index4 alt2"><code class="js spaces"> </code> </div>
-<div class="line number6 index5 alt1"><code class="js plain">Host github.com</code></div>
-<div class="line number7 index6 alt2"><code class="js spaces">    </code><code class="js plain">User git</code></div>
-<div class="line number8 index7 alt1"><code class="js spaces">    </code><code class="js plain">Port 22</code></div>
-<div class="line number9 index8 alt2"><code class="js spaces">    </code><code class="js plain">Hostname github.com</code></div>
-<div class="line number10 index9 alt1"><code class="js spaces">    </code> </div>
-<div class="line number11 index10 alt2"><code class="js spaces">    </code><code class="js preprocessor"># for connect.exe need openssh key format</code></div>
-<div class="line number12 index11 alt1"><code class="js spaces">    </code><code class="js preprocessor">#IdentityFile "y:\home\.ssh\id_rsa_mdecourse"</code></div>
-<div class="line number13 index12 alt2"><code class="js spaces">    </code><code class="js preprocessor"># for plink.exe need rsa key format but set under putty github.com session</code></div>
-<div class="line number14 index13 alt1"><code class="js spaces">    </code><code class="js preprocessor"># plink.exe do not need the following setting</code></div>
-<div class="line number15 index14 alt2"><code class="js spaces">    </code><code class="js preprocessor">#IdentityFile "y:\home\.ssh\mdecourse_putty_private.ppk"</code></div>
-<div class="line number16 index15 alt1"><code class="js spaces"> </code> </div>
-<div class="line number17 index16 alt2"><code class="js spaces">    </code><code class="js plain">TCPKeepAlive yes</code></div>
-<div class="line number18 index17 alt1"><code class="js spaces">    </code><code class="js plain">IdentitiesOnly yes</code></div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>6. 最後再將 wcmj2020 倉儲中 .git 目錄下的 config 檔案中的連線協定, 由 https 改為採 ssh 連線: 範例如下:</p>
-<div>
-<div class="syntaxhighlighter js" id="highlighter_765385">
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-<td class="gutter">
-<div class="line number1 index0 alt2">1</div>
-<div class="line number2 index1 alt1">2</div>
-<div class="line number3 index2 alt2">3</div>
-<div class="line number4 index3 alt1">4</div>
-<div class="line number5 index4 alt2">5</div>
-<div class="line number6 index5 alt1">6</div>
-<div class="line number7 index6 alt2">7</div>
-<div class="line number8 index7 alt1">8</div>
-<div class="line number9 index8 alt2">9</div>
-<div class="line number10 index9 alt1">10</div>
-<div class="line number11 index10 alt2">11</div>
-<div class="line number12 index11 alt1">12</div>
-<div class="line number13 index12 alt2">13</div>
-<div class="line number14 index13 alt1">14</div>
-<div class="line number15 index14 alt2">15</div>
-<div class="line number16 index15 alt1">16</div>
-<div class="line number17 index16 alt2">17</div>
-<div class="line number18 index17 alt1">18</div>
-</td>
-<td class="code">
-<div class="container">
-<div class="line number1 index0 alt2"><code class="js plain">[core]</code></div>
-<div class="line number2 index1 alt1"><code class="js spaces">    </code><code class="js plain">repositoryformatversion = 0</code></div>
-<div class="line number3 index2 alt2"><code class="js spaces">    </code><code class="js plain">filemode = </code><code class="js keyword">false</code></div>
-<div class="line number4 index3 alt1"><code class="js spaces">    </code><code class="js plain">bare = </code><code class="js keyword">false</code></div>
-<div class="line number5 index4 alt2"><code class="js spaces">    </code><code class="js plain">logallrefupdates = </code><code class="js keyword">true</code></div>
-<div class="line number6 index5 alt1"><code class="js spaces">    </code><code class="js plain">symlinks = </code><code class="js keyword">false</code></div>
-<div class="line number7 index6 alt2"><code class="js spaces">    </code><code class="js plain">ignorecase = </code><code class="js keyword">true</code></div>
-<div class="line number8 index7 alt1"><code class="js plain">[submodule]</code></div>
-<div class="line number9 index8 alt2"><code class="js spaces">    </code><code class="js plain">active = .</code></div>
-<div class="line number10 index9 alt1"><code class="js plain">[remote </code><code class="js string">"origin"</code><code class="js plain">]</code></div>
-<div class="line number11 index10 alt2"><code class="js spaces">    </code><code class="js preprocessor">#url = https://github.com/mdecourse/wcmj2020.git</code></div>
-<div class="line number12 index11 alt1"><code class="js spaces">    </code><code class="js plain">url = git@github.com:mdecourse/wcmj2020.git</code></div>
-<div class="line number13 index12 alt2"><code class="js spaces">    </code><code class="js plain">fetch = +refs/heads/*:refs/remotes/origin/*</code></div>
-<div class="line number14 index13 alt1"><code class="js plain">[branch </code><code class="js string">"master"</code><code class="js plain">]</code></div>
-<div class="line number15 index14 alt2"><code class="js spaces">    </code><code class="js plain">remote = origin</code></div>
-<div class="line number16 index15 alt1"><code class="js spaces">    </code><code class="js plain">merge = refs/heads/master</code></div>
-<div class="line number17 index16 alt2"><code class="js plain">[submodule </code><code class="js string">"cmsimde"</code><code class="js plain">]</code></div>
-<div class="line number18 index17 alt1"><code class="js spaces">    </code><code class="js plain">url = https:</code><code class="js comments">//github.com/mdecourse/cmsimde.git</code></div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>之後就可以透過近端的 .ppk private key 與 Github.com 上的 public key 對應, 無需輸入帳號密碼就可以進行 git push.</p>
-<h1>W12</h1>
-<h4></h4>
-<p><span><a href="https://drive.google.com/open?id=1d_YpSrTdKLPKZjkHW2TNsbHRU1ePNRFl">Leo Editor 與 Pelican blog 使用說明影片</a></span></p>
-<h1><span>W13</span></h1>
+<!DOCTYPE html><html>
+        <head>
+        <title>CMSiMDE</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/magnific-popup.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/jquery-ui.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/flaticon/font/flaticon.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/aos.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/style.css">
+        <link rel="shortcut icon" href="./../cmsimde/static/favicons.png">
+        
+        <style type='text/css'>
+            .site-section {
+            background-color: #FFFF;
+            padding: 40px 40px;
+            }
+            body > div > div.dropdown.open {
+                display: block;
+            }
+        </style>
+    
+        <!-- <script src="./../cmsimde/static/jquery.js"></script> -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="./../cmsimde/static/tipuesearch/css/normalize.min.css">
+        <script src="./../cmsimde/static/tipuesearch/tipuesearch_set.js"></script>
+        <script src="tipuesearch_content.js"></script>
+        <link rel="stylesheet" href="./../cmsimde/static/tipuesearch/css/tipuesearch.css">
+        <script src="./../cmsimde/static/tipuesearch/tipuesearch.js"></script>
+        <script>
+            /* original tipuesearch
+            $(document).ready(function() {
+                 $('#tipue_search_input').tipuesearch();
+            });
+            */
+            // customed doSearch
+            function doSearch() {
+                $('#tipue_search_input').tipuesearch({
+                    newWindow: true, 
+                    minimumLength: 2,
+                    wholeWords: false, // for search 中文
+                });
+            }
+            $(document).ready(doSearch);
+        </script>
+        
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushHaxe.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushDart.js"></script>
+<link type="text/css" rel="stylesheet" href="./../cmsimde/static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- 啟用 LaTeX equations 編輯 -->
+<script src="https://scrum-3.github.io/web/math/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+
+<!-- 暫時不用
+<script src="./../cmsimde/static/fengari-web.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+<style>
+img.add_border {
+    border: 3px solid blue;
+}
+</style>
+
+</head>
+<body>
+<div class='container'><nav>
+        
+    <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+            <header class="site-navbar py-4 bg-white" role="banner">
+              <div class="container-fluid">
+                <div class="row align-items-center">
+                <h1>育銓の網際內容管理系統</h1>
+                <div class="pl-4">
+                    <form>
+                    <input type="text" placeholder="Search" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required>
+                    </form>
+                </div>
+                  <!-- <div class="col-11 col-xl-2">
+                    <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">育銓の網際內容管理系統</a></h1> 
+                  </div>
+                  -->
+                  <div class="col-12 col-md-10 d-none d-xl-block">
+                    <nav class="site-navigation position-relative text-right" role="navigation">
+    <ul class='site-menu js-clone-nav mr-auto d-none d-lg-block'>
+                        <li class="active has-children"><a href="index.html">Home</a>
+                        <ul class="dropdown">
+                            <li><a href="sitemap.html">Site Map</a></li>
+                            <li><a href="./../reveal/index.html">reveal</a></li>
+                            <li><a href="./../blog/index.html">blog</a></li>
+                        </ul>
+                      </li>
+                     <li><a href='ABOUT.html'>ABOUT</a><li><a href='Develop.html'>Develop</a><li><a href='網際內容管理筆記.html'>網際內容管理筆記</a><li class='has-children'><a href='W9.html'>W9</a><ul class='dropdown'><li class='has-children'><a href='電腦軟硬體設備簡介.html'>電腦軟硬體設備簡介</a><ul class='dropdown'><li><a href='硬體.html'>硬體</a><li><a href='軟體.html'>軟體</a></li></ul><li><a href='網路架構與設定簡介.html'>網路架構與設定簡介</a></li></ul><li><a href='W10.html'>W10</a><li><a href='W12.html'>W12</a><li><a href='W13.html'>W13</a></li>
+                      </ul>
+                </nav>
+              </div>
+              <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+              </div>
+
+            </div>
+          </div>
+          
+        </header>
+    <div id="tipue_search_content">W12 << <a href='W12.html'>Previous</a> <br /><h1>W13</h1>
 <p>Pelican Blog 內容與 Google Blogger 同步</p>
 <p><a href="https://drive.google.com/open?id=1vpNOyew4ts78nuJ50-CiE26WSk0YxOV7">W13  利用 Leo Editor 按鈕處理同步說明影片</a></p>
 <p><a href="https://drive.google.com/open?id=1I5fLwnRSeDPaSdXkrartxERICHKgmD20">教學影片-2</a></p>
@@ -689,4 +634,46 @@
 <p>pip3 install <span> flask flask_cors lxml bs4 markdown pelican leo</span></p>
 <p>Mac OS X 操作系統</p>
 <p>與 Ubuntu 20.04 類似</p>
-<p></p>
+<p></p><br />W12 << <a href='W12.html'>Previous</a> </div>
+        
+    <!-- footer -->
+      <div class="container">
+        <div class="row pt-3 mx-auto">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+      </div>
+    <!-- for footer -->
+    
+        </div> <!-- for site wrap -->
+            <!-- <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script> -->
+            <script src="../cmsimde/static/chimper/js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery-ui.js"></script>
+            <script src="../cmsimde/static/chimper/js/popper.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/owl.carousel.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.stellar.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.countdown.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.magnific-popup.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap-datepicker.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/aos.js"></script>
+            <!--
+            <script src="../cmsimde/static/chimper/js/typed.js"></script>
+                    <script>
+                    var typed = new Typed('.typed-words', {
+                    strings: ["Web Apps"," WordPress"," Mobile Apps"],
+                    typeSpeed: 80,
+                    backSpeed: 80,
+                    backDelay: 4000,
+                    startDelay: 1000,
+                    loop: true,
+                    showCursor: true
+                    });
+                    </script>
+            -->
+            <script src="../cmsimde/static/chimper/js/main.js"></script>
+        </body></html>
+        

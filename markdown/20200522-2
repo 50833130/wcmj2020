@@ -1,0 +1,38 @@
+---
+Title: CMSIMDE
+Date: 2020-05-22 16:00
+Category: Misc
+Tags: CMSIMDE
+Slug: CMSIMDE
+Author: 50833130
+---
+https://github.com/mdecourse/cmsimde.git 是一套利用 Python 解譯程式語言所編寫的網際內容管理系統, 使用者可以用來建立動態網站, 靜態網站, 網誌與網際簡報系統.
+
+程式語言就其執行的方式, 可以分為編譯式與解譯式等兩種.
+
+編譯式語言例如: C 程式語言
+
+解譯式語言例如: Python 程式語言
+
+編寫程式語言是工程師與電腦溝通的途徑之一, 工程師編寫計算機程式在電腦上執行, 可以透過電腦強大與重複的運算能力來解決問題.
+
+CMSiMDE 就是工程師希望將各種與產品開發的過程資料, 存放在網站上, 除了可用於工程師之間的溝通外, 還能夠將產品開發的細節, 或者特定工具的使用詳細記錄, 以作為往後的參考.
+
+<!-- PELICAN_END_SUMMARY -->
+
+如何使用 CMSiMDE
+(1) 以子模組的方式使用 CMSiMDE
+
+將 Github 倉儲 git clone 到近端工作區之後, 可以利用 git submodule add 指令將遠端倉儲中的 CMSiMDE 程式碼納為倉儲中的 cmsimde 子目錄, 並且保持與遠端原始碼的版次關聯 (也就是能夠指定採用遠端特定版本的 CMSiMDE 程式碼).
+
+好處: 子模組可以與遠端官方的倉儲保持關聯, 一旦 CMSiMDE 更新版本, 使用者可以利用 git pull 直接拉下遠端 CMSiMDE 的最新程式碼.
+
+壞處: 使用者若要 git clone 遠端的倉儲至近端, 需要加上 --recurse-submodules 選項
+
+(2) 不以子模組的方式使用 CMSiMDE
+
+假如不需要保持與遠端 CMSiMDE 倉儲特定版次的關聯性, 可以直接將 CMSiMDE 倉儲中的檔案, 直接放入 cmsimde 目錄, 並將其中 up_dir 的內容複製到希望建立網頁的倉儲主目錄中即可.
+
+好處: 使用者可以直接使用 git clone 指令, 拉下遠端倉儲的所有資料.
+
+壞處: 失去與遠端 CMSiMDE 倉儲的關聯, 假如要使用最新改版後的 CMSiMDE 原始碼, 必須另外 git clone 然後再取代倉儲中 cmsimde 的所有檔案.
