@@ -47,4 +47,646 @@
 <p><span>3.更改簡介</span></p>
 <p><span>4.轉為靜態</span></p>
 <p><span>5.PUSH</span></p>
-<p><span></span></p>
+<h1><span>W10</span></h1>
+<p>1. 下載 Putty 工具組</p>
+<p><span>從 </span><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/" rel="nofollow">https://www.chiark.greenend.org.uk/~sgtatham/putty/</a><span><span> </span>下載一般版, 或從<span> </span></span><a href="http://jakub.kotrla.net/putty/" rel="nofollow">http://jakub.kotrla.net/putty/</a><span><span> </span>下載特殊的可攜版本.</span></p>
+<p><span>2. 利用 y:\portablegit\bin\sh.exe 進入 shell 命令環境後, 以 </span></p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_42663">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js plain">ssh-keygen -t rsa -b 4096 -C </code><code class="js string">"使用者學號"</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>在 /y/home/.ssh 目錄下建立 id_rsa 與 id_rsa.pub 等 private key 與 public key</p>
+<p>之後以 SciTE 開啟 id_rsa.pub 後, 將此 public key 的內容, 以新增添加到 Github.com 帳號下 personal settings -&gt; SSH and GPG keys 頁面下.</p>
+<p>3. 接下來要利用 puttygen.exe 將 id_rsa 轉為 Putty 可以解讀的 .ppk 格式, 並修改隨身系統的啟動批次檔案, 指定利用 putty 目錄下的 plink 執行 git 指令的網路代理設定.</p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_771913">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js plain">修改啟動的 start.bat 加入下列設定:</code></div>
+<div class="line number2 index1 alt1"> </div>
+<div class="line number3 index2 alt2"><code class="js plain">set GIT_HOME=%Disk%:\portablegit\bin\</code></div>
+<div class="line number4 index3 alt1"><code class="js plain">set GIT_SSH=%Disk%:\putty\plink.exe</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>4. 利用 puttygen.exe 載入第二步驟所建立的 private key, 也就是 id_rsa.</p>
+<p>開啟 puttygen 之後, 以右下方的 load 載入 id_rsa, 成功載入後, 利用 save private key 按鈕, 將已經轉為 putty 格式的 .ppk 存檔. 此一 .ppk 檔案必須在設定 putty 中 github.com session 時, 在 Connection-&gt;SSH-&gt;Auth 項目下, 將轉檔後的 .ppk 指向 private key file for authentication 欄位. </p>
+<p>並在 Connection-&gt;Proxy 項目下, 指定 Proxy type: HTTP, 並將 IPv6 代理主機設為 ::53 或 ::42 埠號設為 3128.</p>
+<p>5. 之後確定 home 下的 .ssh 目錄中的 config 設定檔案為:</p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_182748">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+<div class="line number5 index4 alt2">5</div>
+<div class="line number6 index5 alt1">6</div>
+<div class="line number7 index6 alt2">7</div>
+<div class="line number8 index7 alt1">8</div>
+<div class="line number9 index8 alt2">9</div>
+<div class="line number10 index9 alt1">10</div>
+<div class="line number11 index10 alt2">11</div>
+<div class="line number12 index11 alt1">12</div>
+<div class="line number13 index12 alt2">13</div>
+<div class="line number14 index13 alt1">14</div>
+<div class="line number15 index14 alt2">15</div>
+<div class="line number16 index15 alt1">16</div>
+<div class="line number17 index16 alt2">17</div>
+<div class="line number18 index17 alt1">18</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js preprocessor"># no proxy at home</code></div>
+<div class="line number2 index1 alt1"><code class="js preprocessor">#ProxyCommand y:/PortableGit/mingw64/bin/connect.exe -H proxy.mde.nfu.edu.tw:3128 %h %p</code></div>
+<div class="line number3 index2 alt2"><code class="js preprocessor"># set git_ssh=y:/putty/plink.exe with auth under putty github.com session setup</code></div>
+<div class="line number4 index3 alt1"><code class="js plain">ProxyCommand y:/putty/plink.exe github.com %h %p</code></div>
+<div class="line number5 index4 alt2"><code class="js spaces"> </code> </div>
+<div class="line number6 index5 alt1"><code class="js plain">Host github.com</code></div>
+<div class="line number7 index6 alt2"><code class="js spaces">    </code><code class="js plain">User git</code></div>
+<div class="line number8 index7 alt1"><code class="js spaces">    </code><code class="js plain">Port 22</code></div>
+<div class="line number9 index8 alt2"><code class="js spaces">    </code><code class="js plain">Hostname github.com</code></div>
+<div class="line number10 index9 alt1"><code class="js spaces">    </code> </div>
+<div class="line number11 index10 alt2"><code class="js spaces">    </code><code class="js preprocessor"># for connect.exe need openssh key format</code></div>
+<div class="line number12 index11 alt1"><code class="js spaces">    </code><code class="js preprocessor">#IdentityFile "y:\home\.ssh\id_rsa_mdecourse"</code></div>
+<div class="line number13 index12 alt2"><code class="js spaces">    </code><code class="js preprocessor"># for plink.exe need rsa key format but set under putty github.com session</code></div>
+<div class="line number14 index13 alt1"><code class="js spaces">    </code><code class="js preprocessor"># plink.exe do not need the following setting</code></div>
+<div class="line number15 index14 alt2"><code class="js spaces">    </code><code class="js preprocessor">#IdentityFile "y:\home\.ssh\mdecourse_putty_private.ppk"</code></div>
+<div class="line number16 index15 alt1"><code class="js spaces"> </code> </div>
+<div class="line number17 index16 alt2"><code class="js spaces">    </code><code class="js plain">TCPKeepAlive yes</code></div>
+<div class="line number18 index17 alt1"><code class="js spaces">    </code><code class="js plain">IdentitiesOnly yes</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>6. 最後再將 wcmj2020 倉儲中 .git 目錄下的 config 檔案中的連線協定, 由 https 改為採 ssh 連線: 範例如下:</p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_765385">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+<div class="line number5 index4 alt2">5</div>
+<div class="line number6 index5 alt1">6</div>
+<div class="line number7 index6 alt2">7</div>
+<div class="line number8 index7 alt1">8</div>
+<div class="line number9 index8 alt2">9</div>
+<div class="line number10 index9 alt1">10</div>
+<div class="line number11 index10 alt2">11</div>
+<div class="line number12 index11 alt1">12</div>
+<div class="line number13 index12 alt2">13</div>
+<div class="line number14 index13 alt1">14</div>
+<div class="line number15 index14 alt2">15</div>
+<div class="line number16 index15 alt1">16</div>
+<div class="line number17 index16 alt2">17</div>
+<div class="line number18 index17 alt1">18</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js plain">[core]</code></div>
+<div class="line number2 index1 alt1"><code class="js spaces">    </code><code class="js plain">repositoryformatversion = 0</code></div>
+<div class="line number3 index2 alt2"><code class="js spaces">    </code><code class="js plain">filemode = </code><code class="js keyword">false</code></div>
+<div class="line number4 index3 alt1"><code class="js spaces">    </code><code class="js plain">bare = </code><code class="js keyword">false</code></div>
+<div class="line number5 index4 alt2"><code class="js spaces">    </code><code class="js plain">logallrefupdates = </code><code class="js keyword">true</code></div>
+<div class="line number6 index5 alt1"><code class="js spaces">    </code><code class="js plain">symlinks = </code><code class="js keyword">false</code></div>
+<div class="line number7 index6 alt2"><code class="js spaces">    </code><code class="js plain">ignorecase = </code><code class="js keyword">true</code></div>
+<div class="line number8 index7 alt1"><code class="js plain">[submodule]</code></div>
+<div class="line number9 index8 alt2"><code class="js spaces">    </code><code class="js plain">active = .</code></div>
+<div class="line number10 index9 alt1"><code class="js plain">[remote </code><code class="js string">"origin"</code><code class="js plain">]</code></div>
+<div class="line number11 index10 alt2"><code class="js spaces">    </code><code class="js preprocessor">#url = https://github.com/mdecourse/wcmj2020.git</code></div>
+<div class="line number12 index11 alt1"><code class="js spaces">    </code><code class="js plain">url = git@github.com:mdecourse/wcmj2020.git</code></div>
+<div class="line number13 index12 alt2"><code class="js spaces">    </code><code class="js plain">fetch = +refs/heads/*:refs/remotes/origin/*</code></div>
+<div class="line number14 index13 alt1"><code class="js plain">[branch </code><code class="js string">"master"</code><code class="js plain">]</code></div>
+<div class="line number15 index14 alt2"><code class="js spaces">    </code><code class="js plain">remote = origin</code></div>
+<div class="line number16 index15 alt1"><code class="js spaces">    </code><code class="js plain">merge = refs/heads/master</code></div>
+<div class="line number17 index16 alt2"><code class="js plain">[submodule </code><code class="js string">"cmsimde"</code><code class="js plain">]</code></div>
+<div class="line number18 index17 alt1"><code class="js spaces">    </code><code class="js plain">url = https:</code><code class="js comments">//github.com/mdecourse/cmsimde.git</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>之後就可以透過近端的 .ppk private key 與 Github.com 上的 public key 對應, 無需輸入帳號密碼就可以進行 git push.</p>
+<h1>W12</h1>
+<h4></h4>
+<p><span><a href="https://drive.google.com/open?id=1d_YpSrTdKLPKZjkHW2TNsbHRU1ePNRFl">Leo Editor 與 Pelican blog 使用說明影片</a></span></p>
+<h1><span>W13</span></h1>
+<p>Pelican Blog 內容與 Google Blogger 同步</p>
+<p><a href="https://drive.google.com/open?id=1vpNOyew4ts78nuJ50-CiE26WSk0YxOV7">W13  利用 Leo Editor 按鈕處理同步說明影片</a></p>
+<p><a href="https://drive.google.com/open?id=1I5fLwnRSeDPaSdXkrartxERICHKgmD20">教學影片-2</a></p>
+<p><a href="https://drive.google.com/open?id=1hqD5j0H37OWb2k4PQAcQ5aFPAzJrnBQB">教學影片-3</a></p>
+<p>利用 Windows 10 設定 -&gt; 選擇預設網頁瀏覽器, 使用 Google Chrome 作為預設瀏覽器.</p>
+<p>隨身程式系統必須安裝 <span>google-api-python-client 與 oauth2client</span><br/><br/>pip install google-api-python-client oauth2client<br/><br/>OAuth 2.0 client IDs 程式類別可以選擇 Desktop app<br/><br/>使用者完成 client_secrets.json 設定後, 必須將檔案存在倉儲目錄外部</p>
+<p>將 client_secrets.json 轉為 credential_token.dat 的程式:</p>
+<div>
+<div class="syntaxhighlighter py" id="highlighter_735065">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+<div class="line number5 index4 alt2">5</div>
+<div class="line number6 index5 alt1">6</div>
+<div class="line number7 index6 alt2">7</div>
+<div class="line number8 index7 alt1">8</div>
+<div class="line number9 index8 alt2">9</div>
+<div class="line number10 index9 alt1">10</div>
+<div class="line number11 index10 alt2">11</div>
+<div class="line number12 index11 alt1">12</div>
+<div class="line number13 index12 alt2">13</div>
+<div class="line number14 index13 alt1">14</div>
+<div class="line number15 index14 alt2">15</div>
+<div class="line number16 index15 alt1">16</div>
+<div class="line number17 index16 alt2">17</div>
+<div class="line number18 index17 alt1">18</div>
+<div class="line number19 index18 alt2">19</div>
+<div class="line number20 index19 alt1">20</div>
+<div class="line number21 index20 alt2">21</div>
+<div class="line number22 index21 alt1">22</div>
+<div class="line number23 index22 alt2">23</div>
+<div class="line number24 index23 alt1">24</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="py decorator">@language</code> <code class="py plain">python</code></div>
+<div class="line number2 index1 alt1"><code class="py comments"># https://developers.google.com/blogger/docs/3.0/using</code></div>
+<div class="line number3 index2 alt2"><code class="py comments"># under Mac command + b to execute</code></div>
+<div class="line number4 index3 alt1"><code class="py keyword">import</code> <code class="py plain">pickle</code></div>
+<div class="line number5 index4 alt2"><code class="py keyword">import</code> <code class="py plain">os</code></div>
+<div class="line number6 index5 alt1"><code class="py keyword">from</code> <code class="py plain">googleapiclient.discovery </code><code class="py keyword">import</code> <code class="py plain">build</code></div>
+<div class="line number7 index6 alt2"><code class="py keyword">from</code> <code class="py plain">google_auth_oauthlib.flow </code><code class="py keyword">import</code> <code class="py plain">InstalledAppFlow</code></div>
+<div class="line number8 index7 alt1"> </div>
+<div class="line number9 index8 alt2"> </div>
+<div class="line number10 index9 alt1"><code class="py plain">SCOPES </code><code class="py keyword">=</code> <code class="py plain">[</code><code class="py string">'https://www.googleapis.com/auth/blogger'</code><code class="py plain">, ]</code></div>
+<div class="line number11 index10 alt2"> </div>
+<div class="line number12 index11 alt1"><code class="py comments"># we check if the file tBo store the credentials exists</code></div>
+<div class="line number13 index12 alt2"><code class="py keyword">if</code> <code class="py keyword">not</code> <code class="py plain">os.path.exists(</code><code class="py string">'./../../yen_gm_blogger_token.dat'</code><code class="py plain">):</code></div>
+<div class="line number14 index13 alt1"> </div>
+<div class="line number15 index14 alt2"><code class="py spaces">    </code><code class="py plain">flow </code><code class="py keyword">=</code> <code class="py plain">InstalledAppFlow.from_client_secrets_file(</code><code class="py string">'./../../yen_gm_blogger_secrets.json'</code><code class="py plain">, SCOPES)</code></div>
+<div class="line number16 index15 alt1"><code class="py spaces">    </code><code class="py plain">credentials </code><code class="py keyword">=</code> <code class="py plain">flow.run_local_server()</code></div>
+<div class="line number17 index16 alt2"> </div>
+<div class="line number18 index17 alt1"><code class="py spaces">    </code><code class="py plain">with </code><code class="py functions">open</code><code class="py plain">(</code><code class="py string">'./../../yen_gm_blogger_token.dat'</code><code class="py plain">, </code><code class="py string">'wb'</code><code class="py plain">) as credentials_dat:</code></div>
+<div class="line number19 index18 alt2"><code class="py spaces">        </code><code class="py plain">pickle.dump(credentials, credentials_dat)</code></div>
+<div class="line number20 index19 alt1"><code class="py keyword">else</code><code class="py plain">:</code></div>
+<div class="line number21 index20 alt2"><code class="py spaces">    </code><code class="py plain">with </code><code class="py functions">open</code><code class="py plain">(</code><code class="py string">'./../../yen_gm_blogger_token.dat'</code><code class="py plain">, </code><code class="py string">'rb'</code><code class="py plain">) as credentials_dat:</code></div>
+<div class="line number22 index21 alt1"><code class="py spaces">        </code><code class="py plain">credentials </code><code class="py keyword">=</code> <code class="py plain">pickle.load(credentials_dat)</code></div>
+<div class="line number23 index22 alt2"><code class="py plain">service </code><code class="py keyword">=</code> <code class="py plain">build(</code><code class="py string">'blogger'</code><code class="py plain">, </code><code class="py string">'v3'</code><code class="py plain">, credentials</code><code class="py keyword">=</code><code class="py plain">credentials)</code></div>
+<div class="line number24 index23 alt1"><code class="py plain">g.es(service)</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>add_to_blogger 按鈕內容:</p>
+<div>
+<div class="syntaxhighlighter py" id="highlighter_349678">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+<div class="line number5 index4 alt2">5</div>
+<div class="line number6 index5 alt1">6</div>
+<div class="line number7 index6 alt2">7</div>
+<div class="line number8 index7 alt1">8</div>
+<div class="line number9 index8 alt2">9</div>
+<div class="line number10 index9 alt1">10</div>
+<div class="line number11 index10 alt2">11</div>
+<div class="line number12 index11 alt1">12</div>
+<div class="line number13 index12 alt2">13</div>
+<div class="line number14 index13 alt1">14</div>
+<div class="line number15 index14 alt2">15</div>
+<div class="line number16 index15 alt1">16</div>
+<div class="line number17 index16 alt2">17</div>
+<div class="line number18 index17 alt1">18</div>
+<div class="line number19 index18 alt2">19</div>
+<div class="line number20 index19 alt1">20</div>
+<div class="line number21 index20 alt2">21</div>
+<div class="line number22 index21 alt1">22</div>
+<div class="line number23 index22 alt2">23</div>
+<div class="line number24 index23 alt1">24</div>
+<div class="line number25 index24 alt2">25</div>
+<div class="line number26 index25 alt1">26</div>
+<div class="line number27 index26 alt2">27</div>
+<div class="line number28 index27 alt1">28</div>
+<div class="line number29 index28 alt2">29</div>
+<div class="line number30 index29 alt1">30</div>
+<div class="line number31 index30 alt2">31</div>
+<div class="line number32 index31 alt1">32</div>
+<div class="line number33 index32 alt2">33</div>
+<div class="line number34 index33 alt1">34</div>
+<div class="line number35 index34 alt2">35</div>
+<div class="line number36 index35 alt1">36</div>
+<div class="line number37 index36 alt2">37</div>
+<div class="line number38 index37 alt1">38</div>
+<div class="line number39 index38 alt2">39</div>
+<div class="line number40 index39 alt1">40</div>
+<div class="line number41 index40 alt2">41</div>
+<div class="line number42 index41 alt1">42</div>
+<div class="line number43 index42 alt2">43</div>
+<div class="line number44 index43 alt1">44</div>
+<div class="line number45 index44 alt2">45</div>
+<div class="line number46 index45 alt1">46</div>
+<div class="line number47 index46 alt2">47</div>
+<div class="line number48 index47 alt1">48</div>
+<div class="line number49 index48 alt2">49</div>
+<div class="line number50 index49 alt1">50</div>
+<div class="line number51 index50 alt2">51</div>
+<div class="line number52 index51 alt1">52</div>
+<div class="line number53 index52 alt2">53</div>
+<div class="line number54 index53 alt1">54</div>
+<div class="line number55 index54 alt2">55</div>
+<div class="line number56 index55 alt1">56</div>
+<div class="line number57 index56 alt2">57</div>
+<div class="line number58 index57 alt1">58</div>
+<div class="line number59 index58 alt2">59</div>
+<div class="line number60 index59 alt1">60</div>
+<div class="line number61 index60 alt2">61</div>
+<div class="line number62 index61 alt1">62</div>
+<div class="line number63 index62 alt2">63</div>
+<div class="line number64 index63 alt1">64</div>
+<div class="line number65 index64 alt2">65</div>
+<div class="line number66 index65 alt1">66</div>
+<div class="line number67 index66 alt2">67</div>
+<div class="line number68 index67 alt1">68</div>
+<div class="line number69 index68 alt2">69</div>
+<div class="line number70 index69 alt1">70</div>
+<div class="line number71 index70 alt2">71</div>
+<div class="line number72 index71 alt1">72</div>
+<div class="line number73 index72 alt2">73</div>
+<div class="line number74 index73 alt1">74</div>
+<div class="line number75 index74 alt2">75</div>
+<div class="line number76 index75 alt1">76</div>
+<div class="line number77 index76 alt2">77</div>
+<div class="line number78 index77 alt1">78</div>
+<div class="line number79 index78 alt2">79</div>
+<div class="line number80 index79 alt1">80</div>
+<div class="line number81 index80 alt2">81</div>
+<div class="line number82 index81 alt1">82</div>
+<div class="line number83 index82 alt2">83</div>
+<div class="line number84 index83 alt1">84</div>
+<div class="line number85 index84 alt2">85</div>
+<div class="line number86 index85 alt1">86</div>
+<div class="line number87 index86 alt2">87</div>
+<div class="line number88 index87 alt1">88</div>
+<div class="line number89 index88 alt2">89</div>
+<div class="line number90 index89 alt1">90</div>
+<div class="line number91 index90 alt2">91</div>
+<div class="line number92 index91 alt1">92</div>
+<div class="line number93 index92 alt2">93</div>
+<div class="line number94 index93 alt1">94</div>
+<div class="line number95 index94 alt2">95</div>
+<div class="line number96 index95 alt1">96</div>
+<div class="line number97 index96 alt2">97</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="py decorator">@language</code> <code class="py plain">python</code></div>
+<div class="line number2 index1 alt1"><code class="py keyword">from</code> <code class="py plain">markdown </code><code class="py keyword">import</code> <code class="py plain">markdown</code></div>
+<div class="line number3 index2 alt2"><code class="py keyword">from</code> <code class="py plain">oauth2client </code><code class="py keyword">import</code> <code class="py plain">client</code></div>
+<div class="line number4 index3 alt1"><code class="py comments">#from googleapiclient import sample_tools</code></div>
+<div class="line number5 index4 alt2"><code class="py keyword">import</code> <code class="py plain">os</code></div>
+<div class="line number6 index5 alt1"><code class="py comments"># 配合使用 credential token</code></div>
+<div class="line number7 index6 alt2"><code class="py keyword">import</code> <code class="py plain">pickle</code></div>
+<div class="line number8 index7 alt1"><code class="py keyword">from</code> <code class="py plain">googleapiclient.discovery </code><code class="py keyword">import</code> <code class="py plain">build</code></div>
+<div class="line number9 index8 alt2"><code class="py comments">#from google_auth_oauthlib.flow import InstalledAppFlow</code></div>
+<div class="line number10 index9 alt1"><code class="py comments">#from google.auth.transport.requests import Request</code></div>
+<div class="line number11 index10 alt2"> </div>
+<div class="line number12 index11 alt1"><code class="py plain">os.environ[</code><code class="py string">'TZ'</code><code class="py plain">] </code><code class="py keyword">=</code> <code class="py string">'Asia/Taipei'</code></div>
+<div class="line number13 index12 alt2"><code class="py plain">with </code><code class="py functions">open</code><code class="py plain">(</code><code class="py string">'./../../blogger_credentials.dat'</code><code class="py plain">, </code><code class="py string">'rb'</code><code class="py plain">) as credentials_dat:</code></div>
+<div class="line number14 index13 alt1"><code class="py spaces">    </code><code class="py plain">credentials </code><code class="py keyword">=</code> <code class="py plain">pickle.load(credentials_dat)</code></div>
+<div class="line number15 index14 alt2"><code class="py plain">service </code><code class="py keyword">=</code> <code class="py plain">build(</code><code class="py string">'blogger'</code><code class="py plain">, </code><code class="py string">'v3'</code><code class="py plain">, credentials</code><code class="py keyword">=</code><code class="py plain">credentials)</code></div>
+<div class="line number16 index15 alt1"> </div>
+<div class="line number17 index16 alt2"><code class="py keyword">def</code> <code class="py plain">get_cat_tag_content(data):</code></div>
+<div class="line number18 index17 alt1"><code class="py spaces">    </code><code class="py comments"># 請注意, 因為 data 來自 .md 的檔案 內容, 第1行為 ---</code></div>
+<div class="line number19 index18 alt2"><code class="py spaces">    </code><code class="py comments"># 用跳行符號分割</code></div>
+<div class="line number20 index19 alt1"><code class="py spaces">    </code><code class="py plain">data_list </code><code class="py keyword">=</code> <code class="py plain">data.split(</code><code class="py string">"\n"</code><code class="py plain">)</code></div>
+<div class="line number21 index20 alt2"><code class="py spaces">    </code><code class="py comments">#第 2 行為 title</code></div>
+<div class="line number22 index21 alt1"><code class="py spaces">    </code><code class="py plain">title</code><code class="py keyword">=</code> <code class="py plain">data_list[</code><code class="py value">1</code><code class="py plain">]</code></div>
+<div class="line number23 index22 alt2"><code class="py spaces">    </code><code class="py comments">#第 4 行為 category</code></div>
+<div class="line number24 index23 alt1"><code class="py spaces">    </code><code class="py plain">category </code><code class="py keyword">=</code> <code class="py plain">data_list[</code><code class="py value">3</code><code class="py plain">]</code></div>
+<div class="line number25 index24 alt2"><code class="py spaces">    </code><code class="py comments">#第 5 行為 tags</code></div>
+<div class="line number26 index25 alt1"><code class="py spaces">    </code><code class="py plain">tags </code><code class="py keyword">=</code> <code class="py plain">data_list[</code><code class="py value">4</code><code class="py plain">]</code></div>
+<div class="line number27 index26 alt2"><code class="py spaces">    </code><code class="py comments"># 有多項資料的 content 型別為數列</code></div>
+<div class="line number28 index27 alt1"><code class="py spaces">    </code><code class="py comments"># 再將第 9 行之後的資料數列串回成以跳行隔開的資料</code></div>
+<div class="line number29 index28 alt2"><code class="py spaces">    </code><code class="py plain">content </code><code class="py keyword">=</code> <code class="py string">"\n"</code><code class="py plain">.join(data_list[</code><code class="py value">8</code><code class="py plain">:])</code></div>
+<div class="line number30 index29 alt1"><code class="py spaces">    </code><code class="py comments"># 先將截斷摘要與內文的 pelican md 檔按符號, 換成 Blogger 的 &lt;!--more--&gt;</code></div>
+<div class="line number31 index30 alt2"><code class="py spaces">    </code><code class="py plain">content </code><code class="py keyword">=</code> <code class="py plain">content.replace(</code><code class="py string">'&lt;!-- PELICAN_END_SUMMARY --&gt;'</code><code class="py plain">, </code><code class="py string">'&lt;!--more--&gt;'</code><code class="py plain">)</code></div>
+<div class="line number32 index31 alt1"><code class="py spaces">    </code><code class="py comments"># 接著若內容有 ~~~python 與 ~~~ 則換成 Wordpress 格式</code></div>
+<div class="line number33 index32 alt2"><code class="py spaces">    </code><code class="py comments">#content = content.replace('~~~python', '[code lang="python"]')</code></div>
+<div class="line number34 index33 alt1"><code class="py spaces">    </code><code class="py comments">#content = content.replace('~~~', '[/code]')</code></div>
+<div class="line number35 index34 alt2"><code class="py spaces">    </code><code class="py keyword">return</code> <code class="py plain">title, category, tags, content</code></div>
+<div class="line number36 index35 alt1"> </div>
+<div class="line number37 index36 alt2"><code class="py comments"># 從目前所在節點的 body pan 中取出類別, tags 以及文章內容</code></div>
+<div class="line number38 index37 alt1"><code class="py comments"># p.h 為 @clean filename.md</code></div>
+<div class="line number39 index38 alt2"><code class="py comments"># 因為要使用 @clean 節點掛上為後的 blogger post_id, 因此改為讀 .md 檔案</code></div>
+<div class="line number40 index39 alt1"><code class="py plain">md_filename </code><code class="py keyword">=</code> <code class="py plain">p.h.split(</code><code class="py string">" "</code><code class="py plain">)[</code><code class="py value">1</code><code class="py plain">]</code></div>
+<div class="line number41 index40 alt2"><code class="py plain">with </code><code class="py functions">open</code><code class="py plain">(md_filename, </code><code class="py string">'r'</code><code class="py plain">, encoding</code><code class="py keyword">=</code><code class="py string">"utf-8"</code><code class="py plain">) as content_file:</code></div>
+<div class="line number42 index41 alt1"><code class="py spaces">    </code><code class="py plain">md_content </code><code class="py keyword">=</code> <code class="py plain">content_file.read()</code></div>
+<div class="line number43 index42 alt2"><code class="py comments"># title_str, category_str, tags_str, content = get_cat_tag_content(p.b)</code></div>
+<div class="line number44 index43 alt1"><code class="py plain">title_str, category_str, tags_str, content </code><code class="py keyword">=</code> <code class="py plain">get_cat_tag_content(md_content)</code></div>
+<div class="line number45 index44 alt2"><code class="py plain">category </code><code class="py keyword">=</code> <code class="py plain">category_str.split(</code><code class="py string">":"</code><code class="py plain">)[</code><code class="py value">1</code><code class="py plain">]</code></div>
+<div class="line number46 index45 alt1"><code class="py plain">tags </code><code class="py keyword">=</code> <code class="py plain">tags_str.split(</code><code class="py string">":"</code><code class="py plain">)[</code><code class="py value">1</code><code class="py plain">].split(</code><code class="py string">","</code><code class="py plain">)</code></div>
+<div class="line number47 index46 alt2"><code class="py plain">tags.append(category)</code></div>
+<div class="line number48 index47 alt1"><code class="py comments"># title 是一個單獨的字串</code></div>
+<div class="line number49 index48 alt2"><code class="py plain">title </code><code class="py keyword">=</code> <code class="py plain">title_str.split(</code><code class="py string">":"</code><code class="py plain">)[</code><code class="py value">1</code><code class="py plain">]</code></div>
+<div class="line number50 index49 alt1"><code class="py comments"># 將 markdown 格式 content 轉為 html</code></div>
+<div class="line number51 index50 alt2"><code class="py plain">content </code><code class="py keyword">=</code> <code class="py plain">markdown(content)</code></div>
+<div class="line number52 index51 alt1"><code class="py comments"># 以下處理 content 的 &lt;h2&gt; 標題</code></div>
+<div class="line number53 index52 alt2"><code class="py plain">content </code><code class="py keyword">=</code> <code class="py plain">content.replace(</code><code class="py string">"&lt;h2&gt;"</code><code class="py plain">, </code><code class="py string">"&lt;h2&gt;&lt;font size='4'&gt;"</code><code class="py plain">)</code></div>
+<div class="line number54 index53 alt1"><code class="py plain">content </code><code class="py keyword">=</code> <code class="py plain">content.replace(</code><code class="py string">"&lt;/h2&gt;"</code><code class="py plain">, </code><code class="py string">"&lt;/font&gt;&lt;/h2&gt;"</code><code class="py plain">)</code></div>
+<div class="line number55 index54 alt2"><code class="py comments"># g.es(content)</code></div>
+<div class="line number56 index55 alt1"> </div>
+<div class="line number57 index56 alt2"><code class="py keyword">try</code><code class="py plain">:</code></div>
+<div class="line number58 index57 alt1"><code class="py spaces">    </code><code class="py comments">'''</code></div>
+<div class="line number59 index58 alt2"><code class="py spaces">    </code><code class="py comments">users = service.users()</code></div>
+<div class="line number60 index59 alt1"><code class="py spaces">    </code><code class="py comments"># 取得使用者 profile 資料</code></div>
+<div class="line number61 index60 alt2"><code class="py spaces">    </code><code class="py comments">user = users.get(userId='self').execute()</code></div>
+<div class="line number62 index61 alt1"><code class="py spaces">    </code><code class="py comments">print('網誌名稱: %s' % user['displayName'])</code></div>
+<div class="line number63 index62 alt2"><code class="py spaces">    </code><code class="py comments">'''</code></div>
+<div class="line number64 index63 alt1"><code class="py spaces">    </code><code class="py plain">blogs </code><code class="py keyword">=</code> <code class="py plain">service.blogs()</code></div>
+<div class="line number65 index64 alt2"><code class="py spaces">    </code><code class="py comments"># 取得使用者所建立網誌名稱</code></div>
+<div class="line number66 index65 alt1"><code class="py spaces">    </code><code class="py plain">blogs </code><code class="py keyword">=</code> <code class="py plain">blogs.listByUser(userId</code><code class="py keyword">=</code><code class="py string">'self'</code><code class="py plain">).execute()</code></div>
+<div class="line number67 index66 alt2"><code class="py spaces">    </code><code class="py comments"># post_id is now blogs["items"][0]["id"]</code></div>
+<div class="line number68 index67 alt1"><code class="py spaces">    </code><code class="py plain">blog_id </code><code class="py keyword">=</code> <code class="py plain">blogs[</code><code class="py string">"items"</code><code class="py plain">][</code><code class="py value">0</code><code class="py plain">][</code><code class="py string">"id"</code><code class="py plain">]</code></div>
+<div class="line number69 index68 alt2"><code class="py spaces">    </code><code class="py comments">#for blog in blogs['items']:</code></div>
+<div class="line number70 index69 alt1"><code class="py spaces">        </code><code class="py comments">#print(blog['name'], blog['url'])</code></div>
+<div class="line number71 index70 alt2"><code class="py spaces">    </code><code class="py plain">posts </code><code class="py keyword">=</code> <code class="py plain">service.posts()</code></div>
+<div class="line number72 index71 alt1"><code class="py spaces">    </code><code class="py comments"># 新增網誌 post 時, 需要 post_id</code></div>
+<div class="line number73 index72 alt2"><code class="py spaces">    </code><code class="py plain">body </code><code class="py keyword">=</code> <code class="py plain">{</code></div>
+<div class="line number74 index73 alt1"><code class="py spaces">    </code><code class="py string">"kind"</code><code class="py plain">: </code><code class="py string">"blogger#post"</code><code class="py plain">,</code></div>
+<div class="line number75 index74 alt2"><code class="py spaces">    </code><code class="py string">"id"</code><code class="py plain">: blog_id,</code></div>
+<div class="line number76 index75 alt1"><code class="py spaces">    </code><code class="py string">"title"</code><code class="py plain">: title,</code></div>
+<div class="line number77 index76 alt2"><code class="py spaces">    </code><code class="py comments"># 利用 markdown 函式, 將 .md 的內文轉為 html, 作為 Blogger 的文章內容</code></div>
+<div class="line number78 index77 alt1"><code class="py spaces">    </code><code class="py string">"content"</code><code class="py plain">: content,</code></div>
+<div class="line number79 index78 alt2"><code class="py spaces">    </code><code class="py string">"labels"</code><code class="py plain">: tags</code></div>
+<div class="line number80 index79 alt1"><code class="py spaces">    </code><code class="py plain">}</code></div>
+<div class="line number81 index80 alt2"><code class="py spaces">    </code><code class="py plain">insert </code><code class="py keyword">=</code> <code class="py plain">posts.insert(blogId</code><code class="py keyword">=</code><code class="py plain">blog_id, body</code><code class="py keyword">=</code><code class="py plain">body)</code></div>
+<div class="line number82 index81 alt1"><code class="py spaces">    </code><code class="py plain">posts_doc </code><code class="py keyword">=</code> <code class="py plain">insert.execute()</code></div>
+<div class="line number83 index82 alt2"><code class="py spaces">    </code><code class="py plain">post_id </code><code class="py keyword">=</code> <code class="py plain">posts_doc[</code><code class="py string">"id"</code><code class="py plain">]</code></div>
+<div class="line number84 index83 alt1"><code class="py spaces">    </code><code class="py comments">#print(posts_doc)</code></div>
+<div class="line number85 index84 alt2"><code class="py spaces">    </code><code class="py comments"># 改用 credential token 後不會產生 blogger.dat</code></div>
+<div class="line number86 index85 alt1"><code class="py spaces">    </code><code class="py comments">#os.remove("blogger.dat")</code></div>
+<div class="line number87 index86 alt2"><code class="py spaces">    </code><code class="py comments"># 利用最後的 child 節點來儲存 post_id</code></div>
+<div class="line number88 index87 alt1"><code class="py spaces">    </code><code class="py plain">to_save_post_id </code><code class="py keyword">=</code> <code class="py plain">p.insertAsLastChild()   </code></div>
+<div class="line number89 index88 alt2"><code class="py spaces">    </code><code class="py comments"># 改為內文為空的節點, id 直接標在 head 標題 </code></div>
+<div class="line number90 index89 alt1"><code class="py spaces">    </code><code class="py plain">to_save_post_id.b </code><code class="py keyword">=</code> <code class="py plain">""</code></div>
+<div class="line number91 index90 alt2"><code class="py spaces">    </code><code class="py plain">to_save_post_id.h </code><code class="py keyword">=</code> <code class="py plain">post_id</code></div>
+<div class="line number92 index91 alt1"><code class="py spaces">    </code><code class="py comments"># 因為新增節點, commander 必須 redraw</code></div>
+<div class="line number93 index92 alt2"><code class="py spaces">    </code><code class="py plain">c.redraw()</code></div>
+<div class="line number94 index93 alt1"><code class="py spaces">    </code><code class="py plain">g.es(</code><code class="py string">"post_id 為"</code><code class="py plain">, post_id)</code></div>
+<div class="line number95 index94 alt2"><code class="py spaces">    </code><code class="py plain">g.es(</code><code class="py string">"已經將資料送往 Blogger!"</code><code class="py plain">)</code></div>
+<div class="line number96 index95 alt1"><code class="py keyword">except</code><code class="py plain">(client.AccessTokenRefreshError):</code></div>
+<div class="line number97 index96 alt2"><code class="py spaces">    </code><code class="py plain">g.es(</code><code class="py string">"error"</code><code class="py plain">)</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>edit_to_blogger 按鈕內容:</p>
+<div>
+<div class="syntaxhighlighter py" id="highlighter_875958">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+<div class="line number5 index4 alt2">5</div>
+<div class="line number6 index5 alt1">6</div>
+<div class="line number7 index6 alt2">7</div>
+<div class="line number8 index7 alt1">8</div>
+<div class="line number9 index8 alt2">9</div>
+<div class="line number10 index9 alt1">10</div>
+<div class="line number11 index10 alt2">11</div>
+<div class="line number12 index11 alt1">12</div>
+<div class="line number13 index12 alt2">13</div>
+<div class="line number14 index13 alt1">14</div>
+<div class="line number15 index14 alt2">15</div>
+<div class="line number16 index15 alt1">16</div>
+<div class="line number17 index16 alt2">17</div>
+<div class="line number18 index17 alt1">18</div>
+<div class="line number19 index18 alt2">19</div>
+<div class="line number20 index19 alt1">20</div>
+<div class="line number21 index20 alt2">21</div>
+<div class="line number22 index21 alt1">22</div>
+<div class="line number23 index22 alt2">23</div>
+<div class="line number24 index23 alt1">24</div>
+<div class="line number25 index24 alt2">25</div>
+<div class="line number26 index25 alt1">26</div>
+<div class="line number27 index26 alt2">27</div>
+<div class="line number28 index27 alt1">28</div>
+<div class="line number29 index28 alt2">29</div>
+<div class="line number30 index29 alt1">30</div>
+<div class="line number31 index30 alt2">31</div>
+<div class="line number32 index31 alt1">32</div>
+<div class="line number33 index32 alt2">33</div>
+<div class="line number34 index33 alt1">34</div>
+<div class="line number35 index34 alt2">35</div>
+<div class="line number36 index35 alt1">36</div>
+<div class="line number37 index36 alt2">37</div>
+<div class="line number38 index37 alt1">38</div>
+<div class="line number39 index38 alt2">39</div>
+<div class="line number40 index39 alt1">40</div>
+<div class="line number41 index40 alt2">41</div>
+<div class="line number42 index41 alt1">42</div>
+<div class="line number43 index42 alt2">43</div>
+<div class="line number44 index43 alt1">44</div>
+<div class="line number45 index44 alt2">45</div>
+<div class="line number46 index45 alt1">46</div>
+<div class="line number47 index46 alt2">47</div>
+<div class="line number48 index47 alt1">48</div>
+<div class="line number49 index48 alt2">49</div>
+<div class="line number50 index49 alt1">50</div>
+<div class="line number51 index50 alt2">51</div>
+<div class="line number52 index51 alt1">52</div>
+<div class="line number53 index52 alt2">53</div>
+<div class="line number54 index53 alt1">54</div>
+<div class="line number55 index54 alt2">55</div>
+<div class="line number56 index55 alt1">56</div>
+<div class="line number57 index56 alt2">57</div>
+<div class="line number58 index57 alt1">58</div>
+<div class="line number59 index58 alt2">59</div>
+<div class="line number60 index59 alt1">60</div>
+<div class="line number61 index60 alt2">61</div>
+<div class="line number62 index61 alt1">62</div>
+<div class="line number63 index62 alt2">63</div>
+<div class="line number64 index63 alt1">64</div>
+<div class="line number65 index64 alt2">65</div>
+<div class="line number66 index65 alt1">66</div>
+<div class="line number67 index66 alt2">67</div>
+<div class="line number68 index67 alt1">68</div>
+<div class="line number69 index68 alt2">69</div>
+<div class="line number70 index69 alt1">70</div>
+<div class="line number71 index70 alt2">71</div>
+<div class="line number72 index71 alt1">72</div>
+<div class="line number73 index72 alt2">73</div>
+<div class="line number74 index73 alt1">74</div>
+<div class="line number75 index74 alt2">75</div>
+<div class="line number76 index75 alt1">76</div>
+<div class="line number77 index76 alt2">77</div>
+<div class="line number78 index77 alt1">78</div>
+<div class="line number79 index78 alt2">79</div>
+<div class="line number80 index79 alt1">80</div>
+<div class="line number81 index80 alt2">81</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="py decorator">@language</code> <code class="py plain">python</code></div>
+<div class="line number2 index1 alt1"><code class="py keyword">from</code> <code class="py plain">markdown </code><code class="py keyword">import</code> <code class="py plain">markdown</code></div>
+<div class="line number3 index2 alt2"><code class="py keyword">from</code> <code class="py plain">oauth2client </code><code class="py keyword">import</code> <code class="py plain">client</code></div>
+<div class="line number4 index3 alt1"><code class="py comments">#from googleapiclient import sample_tools</code></div>
+<div class="line number5 index4 alt2"><code class="py keyword">import</code> <code class="py plain">os</code></div>
+<div class="line number6 index5 alt1"><code class="py comments"># 配合使用 credential token</code></div>
+<div class="line number7 index6 alt2"><code class="py keyword">import</code> <code class="py plain">pickle</code></div>
+<div class="line number8 index7 alt1"><code class="py keyword">from</code> <code class="py plain">googleapiclient.discovery </code><code class="py keyword">import</code> <code class="py plain">build</code></div>
+<div class="line number9 index8 alt2"><code class="py comments">#from google_auth_oauthlib.flow import InstalledAppFlow</code></div>
+<div class="line number10 index9 alt1"><code class="py comments">#from google.auth.transport.requests import Request</code></div>
+<div class="line number11 index10 alt2"> </div>
+<div class="line number12 index11 alt1"><code class="py plain">os.environ[</code><code class="py string">'TZ'</code><code class="py plain">] </code><code class="py keyword">=</code> <code class="py string">'Asia/Taipei'</code></div>
+<div class="line number13 index12 alt2"><code class="py plain">with </code><code class="py functions">open</code><code class="py plain">(</code><code class="py string">'./../../blogger_credentials.dat'</code><code class="py plain">, </code><code class="py string">'rb'</code><code class="py plain">) as credentials_dat:</code></div>
+<div class="line number14 index13 alt1"><code class="py spaces">    </code><code class="py plain">credentials </code><code class="py keyword">=</code> <code class="py plain">pickle.load(credentials_dat)</code></div>
+<div class="line number15 index14 alt2"><code class="py plain">service </code><code class="py keyword">=</code> <code class="py plain">build(</code><code class="py string">'blogger'</code><code class="py plain">, </code><code class="py string">'v3'</code><code class="py plain">, credentials</code><code class="py keyword">=</code><code class="py plain">credentials)</code></div>
+<div class="line number16 index15 alt1"> </div>
+<div class="line number17 index16 alt2"><code class="py keyword">def</code> <code class="py plain">get_cat_tag_content(data):</code></div>
+<div class="line number18 index17 alt1"><code class="py spaces">    </code><code class="py comments"># 請注意, 因為 data 來自 .md 的檔案 內容, 第1行為 ---</code></div>
+<div class="line number19 index18 alt2"><code class="py spaces">    </code><code class="py comments"># 用跳行符號分割</code></div>
+<div class="line number20 index19 alt1"><code class="py spaces">    </code><code class="py plain">data_list </code><code class="py keyword">=</code> <code class="py plain">data.split(</code><code class="py string">"\n"</code><code class="py plain">)</code></div>
+<div class="line number21 index20 alt2"><code class="py spaces">    </code><code class="py comments">#第 2 行為 title</code></div>
+<div class="line number22 index21 alt1"><code class="py spaces">    </code><code class="py plain">title</code><code class="py keyword">=</code> <code class="py plain">data_list[</code><code class="py value">1</code><code class="py plain">]</code></div>
+<div class="line number23 index22 alt2"><code class="py spaces">    </code><code class="py comments">#第 4 行為 category</code></div>
+<div class="line number24 index23 alt1"><code class="py spaces">    </code><code class="py plain">category </code><code class="py keyword">=</code> <code class="py plain">data_list[</code><code class="py value">3</code><code class="py plain">]</code></div>
+<div class="line number25 index24 alt2"><code class="py spaces">    </code><code class="py comments">#第 5 行為 tags</code></div>
+<div class="line number26 index25 alt1"><code class="py spaces">    </code><code class="py plain">tags </code><code class="py keyword">=</code> <code class="py plain">data_list[</code><code class="py value">4</code><code class="py plain">]</code></div>
+<div class="line number27 index26 alt2"><code class="py spaces">    </code><code class="py comments"># 有多項資料的 content 型別為數列</code></div>
+<div class="line number28 index27 alt1"><code class="py spaces">    </code><code class="py comments"># 再將第 9 行之後的資料數列串回成以跳行隔開的資料</code></div>
+<div class="line number29 index28 alt2"><code class="py spaces">    </code><code class="py plain">content </code><code class="py keyword">=</code> <code class="py string">"\n"</code><code class="py plain">.join(data_list[</code><code class="py value">8</code><code class="py plain">:])</code></div>
+<div class="line number30 index29 alt1"><code class="py spaces">    </code><code class="py comments"># 先將截斷摘要與內文的 pelican md 檔按符號, 換成 Blogger 的 &lt;!--more--&gt;</code></div>
+<div class="line number31 index30 alt2"><code class="py spaces">    </code><code class="py plain">content </code><code class="py keyword">=</code> <code class="py plain">content.replace(</code><code class="py string">'&lt;!-- PELICAN_END_SUMMARY --&gt;'</code><code class="py plain">, </code><code class="py string">'&lt;!--more--&gt;'</code><code class="py plain">)</code></div>
+<div class="line number32 index31 alt1"><code class="py spaces">    </code><code class="py comments"># 接著若內容有 ~~~python 與 ~~~ 則換成 Wordpress 格式</code></div>
+<div class="line number33 index32 alt2"><code class="py spaces">    </code><code class="py comments">#content = content.replace('~~~python', '[code lang="python"]')</code></div>
+<div class="line number34 index33 alt1"><code class="py spaces">    </code><code class="py comments">#content = content.replace('~~~', '[/code]')</code></div>
+<div class="line number35 index34 alt2"><code class="py spaces">    </code><code class="py keyword">return</code> <code class="py plain">title, category, tags, content</code></div>
+<div class="line number36 index35 alt1"> </div>
+<div class="line number37 index36 alt2"><code class="py comments"># 從目前所在節點的 body pan 中取出類別, tags 以及文章內容</code></div>
+<div class="line number38 index37 alt1"><code class="py comments"># p.h 為 @clean filename.md</code></div>
+<div class="line number39 index38 alt2"><code class="py comments"># 因為要使用 @clean 節點掛上為後的 blogger post_id, 因此改為讀 .md 檔案</code></div>
+<div class="line number40 index39 alt1"><code class="py plain">md_filename </code><code class="py keyword">=</code> <code class="py plain">p.h.split(</code><code class="py string">" "</code><code class="py plain">)[</code><code class="py value">1</code><code class="py plain">]</code></div>
+<div class="line number41 index40 alt2"><code class="py plain">with </code><code class="py functions">open</code><code class="py plain">(md_filename, </code><code class="py string">'r'</code><code class="py plain">, encoding</code><code class="py keyword">=</code><code class="py string">"utf-8"</code><code class="py plain">) as content_file:</code></div>
+<div class="line number42 index41 alt1"><code class="py spaces">    </code><code class="py plain">md_content </code><code class="py keyword">=</code> <code class="py plain">content_file.read()</code></div>
+<div class="line number43 index42 alt2"><code class="py comments"># title_str, category_str, tags_str, content = get_cat_tag_content(p.b)</code></div>
+<div class="line number44 index43 alt1"><code class="py plain">title_str, category_str, tags_str, content </code><code class="py keyword">=</code> <code class="py plain">get_cat_tag_content(md_content)</code></div>
+<div class="line number45 index44 alt2"><code class="py plain">category </code><code class="py keyword">=</code> <code class="py plain">category_str.split(</code><code class="py string">":"</code><code class="py plain">)[</code><code class="py value">1</code><code class="py plain">]</code></div>
+<div class="line number46 index45 alt1"><code class="py plain">tags </code><code class="py keyword">=</code> <code class="py plain">tags_str.split(</code><code class="py string">":"</code><code class="py plain">)[</code><code class="py value">1</code><code class="py plain">].split(</code><code class="py string">","</code><code class="py plain">)</code></div>
+<div class="line number47 index46 alt2"><code class="py plain">tags.append(category)</code></div>
+<div class="line number48 index47 alt1"><code class="py comments"># title 是一個單獨的字串</code></div>
+<div class="line number49 index48 alt2"><code class="py plain">title </code><code class="py keyword">=</code> <code class="py plain">title_str.split(</code><code class="py string">":"</code><code class="py plain">)[</code><code class="py value">1</code><code class="py plain">]</code></div>
+<div class="line number50 index49 alt1"><code class="py comments"># 將 markdown 格式 content 轉為 html</code></div>
+<div class="line number51 index50 alt2"><code class="py plain">content </code><code class="py keyword">=</code> <code class="py plain">markdown(content)</code></div>
+<div class="line number52 index51 alt1"><code class="py comments"># 以下處理 content 的 &lt;h2&gt; 標題</code></div>
+<div class="line number53 index52 alt2"><code class="py plain">content </code><code class="py keyword">=</code> <code class="py plain">content.replace(</code><code class="py string">"&lt;h2&gt;"</code><code class="py plain">, </code><code class="py string">"&lt;h2&gt;&lt;font size='4'&gt;"</code><code class="py plain">)</code></div>
+<div class="line number54 index53 alt1"><code class="py plain">content </code><code class="py keyword">=</code> <code class="py plain">content.replace(</code><code class="py string">"&lt;/h2&gt;"</code><code class="py plain">, </code><code class="py string">"&lt;/font&gt;&lt;/h2&gt;"</code><code class="py plain">)</code></div>
+<div class="line number55 index54 alt2"><code class="py comments"># g.es(content)</code></div>
+<div class="line number56 index55 alt1"> </div>
+<div class="line number57 index56 alt2"><code class="py keyword">try</code><code class="py plain">:</code></div>
+<div class="line number58 index57 alt1"><code class="py spaces">    </code><code class="py plain">blogs </code><code class="py keyword">=</code> <code class="py plain">service.blogs()</code></div>
+<div class="line number59 index58 alt2"><code class="py spaces">    </code><code class="py comments"># 取得使用者所建立網誌名稱</code></div>
+<div class="line number60 index59 alt1"><code class="py spaces">    </code><code class="py plain">blogs </code><code class="py keyword">=</code> <code class="py plain">blogs.listByUser(userId</code><code class="py keyword">=</code><code class="py string">'self'</code><code class="py plain">).execute()</code></div>
+<div class="line number61 index60 alt2"><code class="py spaces">    </code><code class="py plain">blog_id </code><code class="py keyword">=</code> <code class="py plain">blogs[</code><code class="py string">"items"</code><code class="py plain">][</code><code class="py value">0</code><code class="py plain">][</code><code class="py string">"id"</code><code class="py plain">]</code></div>
+<div class="line number62 index61 alt1"><code class="py spaces">    </code><code class="py comments"># 設法取得原 post 的 id</code></div>
+<div class="line number63 index62 alt2"><code class="py spaces">    </code><code class="py plain">postid_outline </code><code class="py keyword">=</code> <code class="py plain">p.getLastChild()</code></div>
+<div class="line number64 index63 alt1"><code class="py spaces">    </code><code class="py comments"># 直接從標題取得 post 的 id 號碼</code></div>
+<div class="line number65 index64 alt2"><code class="py spaces">    </code><code class="py plain">post_id </code><code class="py keyword">=</code> <code class="py plain">postid_outline.h</code></div>
+<div class="line number66 index65 alt1"><code class="py spaces">    </code><code class="py plain">posts </code><code class="py keyword">=</code> <code class="py plain">service.posts()</code></div>
+<div class="line number67 index66 alt2"><code class="py spaces">    </code><code class="py comments"># 更新網誌文章時的 body</code></div>
+<div class="line number68 index67 alt1"><code class="py spaces">    </code><code class="py plain">body </code><code class="py keyword">=</code> <code class="py plain">{</code></div>
+<div class="line number69 index68 alt2"><code class="py spaces">    </code><code class="py string">"kind"</code><code class="py plain">: </code><code class="py string">"blogger#post"</code><code class="py plain">,</code></div>
+<div class="line number70 index69 alt1"><code class="py spaces">    </code><code class="py string">"title"</code><code class="py plain">: title,</code></div>
+<div class="line number71 index70 alt2"><code class="py spaces">    </code><code class="py string">"content"</code><code class="py plain">: content</code></div>
+<div class="line number72 index71 alt1"><code class="py spaces">    </code><code class="py plain">}</code></div>
+<div class="line number73 index72 alt2"><code class="py spaces">    </code><code class="py comments"># need to save postId to outline head</code></div>
+<div class="line number74 index73 alt1"><code class="py spaces">    </code><code class="py plain">update </code><code class="py keyword">=</code> <code class="py plain">posts.update(blogId</code><code class="py keyword">=</code><code class="py plain">blog_id, postId</code><code class="py keyword">=</code><code class="py plain">post_id, body</code><code class="py keyword">=</code><code class="py plain">body, publish</code><code class="py keyword">=</code><code class="py color1">True</code><code class="py plain">)</code></div>
+<div class="line number75 index74 alt2"><code class="py spaces">    </code><code class="py plain">update_doc </code><code class="py keyword">=</code> <code class="py plain">update.execute()</code></div>
+<div class="line number76 index75 alt1"><code class="py spaces">    </code><code class="py comments"># 使用 credential token 後, 無需刪除 blogger.dat</code></div>
+<div class="line number77 index76 alt2"><code class="py spaces">    </code><code class="py comments">#os.remove("blogger.dat")</code></div>
+<div class="line number78 index77 alt1"><code class="py spaces">    </code><code class="py plain">g.es(</code><code class="py string">"post_id 為"</code><code class="py plain">, post_id)</code></div>
+<div class="line number79 index78 alt2"><code class="py spaces">    </code><code class="py plain">g.es(</code><code class="py string">"已經將更新資料送往 Blogger!"</code><code class="py plain">)</code></div>
+<div class="line number80 index79 alt1"><code class="py keyword">except</code><code class="py plain">(client.AccessTokenRefreshError):</code></div>
+<div class="line number81 index80 alt2"><code class="py spaces">    </code><code class="py plain">g.es(</code><code class="py string">"error"</code><code class="py plain">)</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<br/><span></span>W14
+<p>直接在操作系統建立網際內容管理合用系統</p>
+<p>Windows 10 64 位元操作系統</p>
+<p>安裝 Python 3.8.3 與 pip</p>
+<p>至 <a href="https://www.python.org/downloads/windows/">https://www.python.org/downloads/windows/</a> 下載 Python 3.8.3<span> </span><a href="https://www.python.org/ftp/python/3.8.3/python-3.8.3-amd64.exe">Windows x86-64 executable installer</a></p>
+<p>可以直接選擇安裝 pip 與所有選項內容</p>
+<p>安裝 Git</p>
+<p>利用 <a href="https://github.com/git-for-windows/git/releases/download/v2.26.2.windows.1/Git-2.26.2-64-bit.exe">64-bit Git for Windows Setup</a> 安裝 Git 工具.</p>
+<p>安裝 CMSiMDE 所需模組</p>
+<p>利用 cmd 開啟命令列視窗, 以 pip 安裝 flask flask_cors lxml bs4 markdown pelican leo 等模組</p>
+<p>pip install <span> flask flask_cors lxml bs4 markdown pelican leo</span></p>
+<p>Ubuntu 20.04 操作系統 (請下載<a href="https://drive.google.com/open?id=13Gqwyj0CGR6wa9dZg_BmlCLv5cNYWQJ_"><span> </span>W12 Virtualbox 虛擬主機檔案</a>)</p>
+<p>Ubuntu 20.04 同時存在 Python 2.7 與 Python 3.8.2,  CMSiMDE 只相容於 Python 3.8.2, 因此啟動指令必須使用:</p>
+<p>python3 wsgi.py</p>
+<p>與 </p>
+<p>pip3 install <span> flask flask_cors lxml bs4 markdown pelican leo</span></p>
+<p>Mac OS X 操作系統</p>
+<p>與 Ubuntu 20.04 類似</p>
+<p></p>
