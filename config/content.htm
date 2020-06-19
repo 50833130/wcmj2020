@@ -689,4 +689,432 @@
 <p>pip3 install <span> flask flask_cors lxml bs4 markdown pelican leo</span></p>
 <p>Mac OS X 操作系統</p>
 <p>與 Ubuntu 20.04 類似</p>
-<p></p>
+<h1>W14</h1>
+<h1>新增 blogger 文章</h1>
+<h4>w14_blogger_add_1.py</h4>
+<div>
+<div class="syntaxhighlighter py" id="highlighter_371240">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+<div class="line number5 index4 alt2">5</div>
+<div class="line number6 index5 alt1">6</div>
+<div class="line number7 index6 alt2">7</div>
+<div class="line number8 index7 alt1">8</div>
+<div class="line number9 index8 alt2">9</div>
+<div class="line number10 index9 alt1">10</div>
+<div class="line number11 index10 alt2">11</div>
+<div class="line number12 index11 alt1">12</div>
+<div class="line number13 index12 alt2">13</div>
+<div class="line number14 index13 alt1">14</div>
+<div class="line number15 index14 alt2">15</div>
+<div class="line number16 index15 alt1">16</div>
+<div class="line number17 index16 alt2">17</div>
+<div class="line number18 index17 alt1">18</div>
+<div class="line number19 index18 alt2">19</div>
+<div class="line number20 index19 alt1">20</div>
+<div class="line number21 index20 alt2">21</div>
+<div class="line number22 index21 alt1">22</div>
+<div class="line number23 index22 alt2">23</div>
+<div class="line number24 index23 alt1">24</div>
+<div class="line number25 index24 alt2">25</div>
+<div class="line number26 index25 alt1">26</div>
+<div class="line number27 index26 alt2">27</div>
+<div class="line number28 index27 alt1">28</div>
+<div class="line number29 index28 alt2">29</div>
+<div class="line number30 index29 alt1">30</div>
+<div class="line number31 index30 alt2">31</div>
+<div class="line number32 index31 alt1">32</div>
+<div class="line number33 index32 alt2">33</div>
+<div class="line number34 index33 alt1">34</div>
+<div class="line number35 index34 alt2">35</div>
+<div class="line number36 index35 alt1">36</div>
+<div class="line number37 index36 alt2">37</div>
+<div class="line number38 index37 alt1">38</div>
+<div class="line number39 index38 alt2">39</div>
+<div class="line number40 index39 alt1">40</div>
+<div class="line number41 index40 alt2">41</div>
+<div class="line number42 index41 alt1">42</div>
+<div class="line number43 index42 alt2">43</div>
+<div class="line number44 index43 alt1">44</div>
+<div class="line number45 index44 alt2">45</div>
+<div class="line number46 index45 alt1">46</div>
+<div class="line number47 index46 alt2">47</div>
+<div class="line number48 index47 alt1">48</div>
+<div class="line number49 index48 alt2">49</div>
+<div class="line number50 index49 alt1">50</div>
+<div class="line number51 index50 alt2">51</div>
+<div class="line number52 index51 alt1">52</div>
+<div class="line number53 index52 alt2">53</div>
+<div class="line number54 index53 alt1">54</div>
+<div class="line number55 index54 alt2">55</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="py comments">'''</code></div>
+<div class="line number2 index1 alt1"><code class="py comments">用來測試 Google Blogger Python API 新增文章程式</code></div>
+<div class="line number3 index2 alt2"> </div>
+<div class="line number4 index3 alt1"><code class="py comments">pip install google-api-python-client oauth2client</code></div>
+<div class="line number5 index4 alt2"> </div>
+<div class="line number6 index5 alt1"><code class="py comments">'''</code></div>
+<div class="line number7 index6 alt2"> </div>
+<div class="line number8 index7 alt1"><code class="py keyword">import</code> <code class="py plain">sys</code></div>
+<div class="line number9 index8 alt2"><code class="py keyword">from</code> <code class="py plain">oauth2client </code><code class="py keyword">import</code> <code class="py plain">client</code></div>
+<div class="line number10 index9 alt1"><code class="py keyword">from</code> <code class="py plain">googleapiclient </code><code class="py keyword">import</code> <code class="py plain">sample_tools</code></div>
+<div class="line number11 index10 alt2"> </div>
+<div class="line number12 index11 alt1"><code class="py plain">argv </code><code class="py keyword">=</code> <code class="py plain">""</code></div>
+<div class="line number13 index12 alt2"><code class="py comments"># 認證並建立服務</code></div>
+<div class="line number14 index13 alt1"><code class="py plain">service, flags </code><code class="py keyword">=</code> <code class="py plain">sample_tools.init(</code></div>
+<div class="line number15 index14 alt2"><code class="py spaces">  </code><code class="py plain">argv, </code><code class="py string">'blogger'</code><code class="py plain">, </code><code class="py string">'v3'</code><code class="py plain">, __doc__, </code><code class="py string">'./client_secrets.json'</code><code class="py plain">,</code></div>
+<div class="line number16 index15 alt1"><code class="py spaces">  </code><code class="py plain">scope</code><code class="py keyword">=</code><code class="py string">'https://www.googleapis.com/auth/blogger'</code><code class="py plain">)</code></div>
+<div class="line number17 index16 alt2"> </div>
+<div class="line number18 index17 alt1"><code class="py keyword">try</code><code class="py plain">:</code></div>
+<div class="line number19 index18 alt2"><code class="py spaces">    </code><code class="py plain">users </code><code class="py keyword">=</code> <code class="py plain">service.users()</code></div>
+<div class="line number20 index19 alt1"><code class="py spaces">    </code><code class="py comments"># 取得使用者 profile 資料</code></div>
+<div class="line number21 index20 alt2"><code class="py spaces">    </code><code class="py plain">user </code><code class="py keyword">=</code> <code class="py plain">users.get(userId</code><code class="py keyword">=</code><code class="py string">'self'</code><code class="py plain">).execute()</code></div>
+<div class="line number22 index21 alt1"><code class="py spaces">    </code><code class="py functions">print</code><code class="py plain">(</code><code class="py string">'網誌名稱: %s'</code> <code class="py keyword">%</code> <code class="py plain">user[</code><code class="py string">'displayName'</code><code class="py plain">])</code></div>
+<div class="line number23 index22 alt2"><code class="py spaces">    </code><code class="py plain">blogs </code><code class="py keyword">=</code> <code class="py plain">service.blogs()</code></div>
+<div class="line number24 index23 alt1"><code class="py spaces">    </code><code class="py comments"># 取得使用者所建立網誌名稱</code></div>
+<div class="line number25 index24 alt2"><code class="py spaces">    </code><code class="py plain">blogs </code><code class="py keyword">=</code> <code class="py plain">blogs.listByUser(userId</code><code class="py keyword">=</code><code class="py string">'self'</code><code class="py plain">).execute()</code></div>
+<div class="line number26 index25 alt1"><code class="py spaces">    </code><code class="py keyword">for</code> <code class="py plain">blog </code><code class="py keyword">in</code> <code class="py plain">blogs[</code><code class="py string">'items'</code><code class="py plain">]:</code></div>
+<div class="line number27 index26 alt2"><code class="py spaces">        </code><code class="py functions">print</code><code class="py plain">(blog[</code><code class="py string">'name'</code><code class="py plain">], blog[</code><code class="py string">'url'</code><code class="py plain">])</code></div>
+<div class="line number28 index27 alt1"><code class="py spaces">    </code><code class="py plain">posts </code><code class="py keyword">=</code> <code class="py plain">service.posts()</code></div>
+<div class="line number29 index28 alt2"><code class="py spaces">    </code><code class="py comments"># 新增網誌 post 時, 需要 blog id</code></div>
+<div class="line number30 index29 alt1"> </div>
+<div class="line number31 index30 alt2"><code class="py spaces">    </code><code class="py plain">body </code><code class="py keyword">=</code> <code class="py plain">{</code></div>
+<div class="line number32 index31 alt1"><code class="py spaces">    </code><code class="py string">"kind"</code><code class="py plain">: </code><code class="py string">"blogger#post"</code><code class="py plain">,</code></div>
+<div class="line number33 index32 alt2"><code class="py spaces">    </code><code class="py string">"id"</code><code class="py plain">: </code><code class="py string">"123"</code><code class="py plain">,</code></div>
+<div class="line number34 index33 alt1"><code class="py spaces">    </code><code class="py string">"title"</code><code class="py plain">: </code><code class="py string">"透過 Python 程式新增網誌文章1"</code><code class="py plain">,</code></div>
+<div class="line number35 index34 alt2"><code class="py spaces">    </code><code class="py string">"content"</code><code class="py plain">:</code><code class="py string">"使用 Google Blogger API 可以利用程式新增網誌文章內容1"</code></div>
+<div class="line number36 index35 alt1"><code class="py spaces">    </code><code class="py plain">}</code></div>
+<div class="line number37 index36 alt2"><code class="py spaces">    </code> </div>
+<div class="line number38 index37 alt1"><code class="py spaces">    </code><code class="py plain">insert </code><code class="py keyword">=</code> <code class="py plain">posts.insert(blogId</code><code class="py keyword">=</code><code class="py string">'123'</code><code class="py plain">, body</code><code class="py keyword">=</code><code class="py plain">body)</code></div>
+<div class="line number39 index38 alt2"><code class="py spaces">    </code><code class="py plain">posts_doc </code><code class="py keyword">=</code> <code class="py plain">insert.execute()</code></div>
+<div class="line number40 index39 alt1"><code class="py spaces">    </code><code class="py functions">print</code><code class="py plain">(posts_doc)</code></div>
+<div class="line number41 index40 alt2"><code class="py spaces">    </code> </div>
+<div class="line number42 index41 alt1"><code class="py spaces">    </code><code class="py comments">'''</code></div>
+<div class="line number43 index42 alt2"><code class="py spaces">    </code><code class="py comments"># 更新網誌文章時的 body</code></div>
+<div class="line number44 index43 alt1"><code class="py spaces">    </code><code class="py comments">body = {</code></div>
+<div class="line number45 index44 alt2"><code class="py spaces">    </code><code class="py comments">"kind": "blogger#post",</code></div>
+<div class="line number46 index45 alt1"><code class="py spaces">    </code><code class="py comments">"title": "透過 Python 程式修改網誌文章2",</code></div>
+<div class="line number47 index46 alt2"><code class="py spaces">    </code><code class="py comments">"content": "使用 Google Blogger API 可以利用程式修改網誌文章內容. http://mde.tw/cd2019"</code></div>
+<div class="line number48 index47 alt1"><code class="py spaces">    </code><code class="py comments">}</code></div>
+<div class="line number49 index48 alt2"><code class="py spaces">    </code> </div>
+<div class="line number50 index49 alt1"><code class="py spaces">    </code><code class="py comments">update = posts.update(blogId="123", postId="456", body=body, publish=True)</code></div>
+<div class="line number51 index50 alt2"><code class="py spaces">    </code><code class="py comments">update_doc = update.execute()</code></div>
+<div class="line number52 index51 alt1"><code class="py spaces">    </code><code class="py comments">print(update_doc)</code></div>
+<div class="line number53 index52 alt2"><code class="py spaces">    </code><code class="py comments">'''</code></div>
+<div class="line number54 index53 alt1"><code class="py keyword">except</code><code class="py plain">(client.AccessTokenRefreshError):</code></div>
+<div class="line number55 index54 alt2"><code class="py spaces">    </code><code class="py functions">print</code><code class="py plain">(</code><code class="py string">"error"</code><code class="py plain">)</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<h1>編輯 Blogger 文章</h1>
+<h4>w14_blogger_edit_1.py</h4>
+<div>
+<div class="syntaxhighlighter py" id="highlighter_624542">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+<div class="line number5 index4 alt2">5</div>
+<div class="line number6 index5 alt1">6</div>
+<div class="line number7 index6 alt2">7</div>
+<div class="line number8 index7 alt1">8</div>
+<div class="line number9 index8 alt2">9</div>
+<div class="line number10 index9 alt1">10</div>
+<div class="line number11 index10 alt2">11</div>
+<div class="line number12 index11 alt1">12</div>
+<div class="line number13 index12 alt2">13</div>
+<div class="line number14 index13 alt1">14</div>
+<div class="line number15 index14 alt2">15</div>
+<div class="line number16 index15 alt1">16</div>
+<div class="line number17 index16 alt2">17</div>
+<div class="line number18 index17 alt1">18</div>
+<div class="line number19 index18 alt2">19</div>
+<div class="line number20 index19 alt1">20</div>
+<div class="line number21 index20 alt2">21</div>
+<div class="line number22 index21 alt1">22</div>
+<div class="line number23 index22 alt2">23</div>
+<div class="line number24 index23 alt1">24</div>
+<div class="line number25 index24 alt2">25</div>
+<div class="line number26 index25 alt1">26</div>
+<div class="line number27 index26 alt2">27</div>
+<div class="line number28 index27 alt1">28</div>
+<div class="line number29 index28 alt2">29</div>
+<div class="line number30 index29 alt1">30</div>
+<div class="line number31 index30 alt2">31</div>
+<div class="line number32 index31 alt1">32</div>
+<div class="line number33 index32 alt2">33</div>
+<div class="line number34 index33 alt1">34</div>
+<div class="line number35 index34 alt2">35</div>
+<div class="line number36 index35 alt1">36</div>
+<div class="line number37 index36 alt2">37</div>
+<div class="line number38 index37 alt1">38</div>
+<div class="line number39 index38 alt2">39</div>
+<div class="line number40 index39 alt1">40</div>
+<div class="line number41 index40 alt2">41</div>
+<div class="line number42 index41 alt1">42</div>
+<div class="line number43 index42 alt2">43</div>
+<div class="line number44 index43 alt1">44</div>
+<div class="line number45 index44 alt2">45</div>
+<div class="line number46 index45 alt1">46</div>
+<div class="line number47 index46 alt2">47</div>
+<div class="line number48 index47 alt1">48</div>
+<div class="line number49 index48 alt2">49</div>
+<div class="line number50 index49 alt1">50</div>
+<div class="line number51 index50 alt2">51</div>
+<div class="line number52 index51 alt1">52</div>
+<div class="line number53 index52 alt2">53</div>
+<div class="line number54 index53 alt1">54</div>
+<div class="line number55 index54 alt2">55</div>
+<div class="line number56 index55 alt1">56</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="py comments">'''</code></div>
+<div class="line number2 index1 alt1"><code class="py comments">用來測試 Google Blogger Python API 編輯文章程式</code></div>
+<div class="line number3 index2 alt2"> </div>
+<div class="line number4 index3 alt1"><code class="py comments">pip install google-api-python-client oauth2client</code></div>
+<div class="line number5 index4 alt2"> </div>
+<div class="line number6 index5 alt1"><code class="py comments">'''</code></div>
+<div class="line number7 index6 alt2"> </div>
+<div class="line number8 index7 alt1"><code class="py keyword">import</code> <code class="py plain">sys</code></div>
+<div class="line number9 index8 alt2"><code class="py keyword">from</code> <code class="py plain">oauth2client </code><code class="py keyword">import</code> <code class="py plain">client</code></div>
+<div class="line number10 index9 alt1"><code class="py keyword">from</code> <code class="py plain">googleapiclient </code><code class="py keyword">import</code> <code class="py plain">sample_tools</code></div>
+<div class="line number11 index10 alt2"> </div>
+<div class="line number12 index11 alt1"><code class="py plain">argv </code><code class="py keyword">=</code> <code class="py plain">""</code></div>
+<div class="line number13 index12 alt2"><code class="py comments"># 認證並建立服務</code></div>
+<div class="line number14 index13 alt1"><code class="py plain">service, flags </code><code class="py keyword">=</code> <code class="py plain">sample_tools.init(</code></div>
+<div class="line number15 index14 alt2"><code class="py spaces">  </code><code class="py plain">argv, </code><code class="py string">'blogger'</code><code class="py plain">, </code><code class="py string">'v3'</code><code class="py plain">, __doc__, </code><code class="py string">'./client_secrets.json'</code><code class="py plain">,</code></div>
+<div class="line number16 index15 alt1"><code class="py spaces">  </code><code class="py plain">scope</code><code class="py keyword">=</code><code class="py string">'https://www.googleapis.com/auth/blogger'</code><code class="py plain">)</code></div>
+<div class="line number17 index16 alt2"> </div>
+<div class="line number18 index17 alt1"><code class="py keyword">try</code><code class="py plain">:</code></div>
+<div class="line number19 index18 alt2"><code class="py spaces">    </code><code class="py plain">users </code><code class="py keyword">=</code> <code class="py plain">service.users()</code></div>
+<div class="line number20 index19 alt1"><code class="py spaces">    </code><code class="py comments"># 取得使用者 profile 資料</code></div>
+<div class="line number21 index20 alt2"><code class="py spaces">    </code><code class="py plain">user </code><code class="py keyword">=</code> <code class="py plain">users.get(userId</code><code class="py keyword">=</code><code class="py string">'self'</code><code class="py plain">).execute()</code></div>
+<div class="line number22 index21 alt1"><code class="py spaces">    </code><code class="py functions">print</code><code class="py plain">(</code><code class="py string">'網誌名稱: %s'</code> <code class="py keyword">%</code> <code class="py plain">user[</code><code class="py string">'displayName'</code><code class="py plain">])</code></div>
+<div class="line number23 index22 alt2"><code class="py spaces">    </code><code class="py plain">blogs </code><code class="py keyword">=</code> <code class="py plain">service.blogs()</code></div>
+<div class="line number24 index23 alt1"><code class="py spaces">    </code><code class="py comments"># 取得使用者所建立網誌名稱</code></div>
+<div class="line number25 index24 alt2"><code class="py spaces">    </code><code class="py plain">blogs </code><code class="py keyword">=</code> <code class="py plain">blogs.listByUser(userId</code><code class="py keyword">=</code><code class="py string">'self'</code><code class="py plain">).execute()</code></div>
+<div class="line number26 index25 alt1"><code class="py spaces">    </code><code class="py keyword">for</code> <code class="py plain">blog </code><code class="py keyword">in</code> <code class="py plain">blogs[</code><code class="py string">'items'</code><code class="py plain">]:</code></div>
+<div class="line number27 index26 alt2"><code class="py spaces">        </code><code class="py functions">print</code><code class="py plain">(blog[</code><code class="py string">'name'</code><code class="py plain">], blog[</code><code class="py string">'url'</code><code class="py plain">])</code></div>
+<div class="line number28 index27 alt1"><code class="py spaces">    </code><code class="py plain">posts </code><code class="py keyword">=</code> <code class="py plain">service.posts()</code></div>
+<div class="line number29 index28 alt2"><code class="py spaces">    </code><code class="py comments"># 新增網誌 post 時, 需要 blog id</code></div>
+<div class="line number30 index29 alt1"> </div>
+<div class="line number31 index30 alt2"><code class="py spaces">    </code><code class="py comments">'''</code></div>
+<div class="line number32 index31 alt1"><code class="py spaces">    </code><code class="py comments">body = {</code></div>
+<div class="line number33 index32 alt2"><code class="py spaces">    </code><code class="py comments">"kind": "blogger#post",</code></div>
+<div class="line number34 index33 alt1"><code class="py spaces">    </code><code class="py comments">"id": "123",</code></div>
+<div class="line number35 index34 alt2"><code class="py spaces">    </code><code class="py comments">"title": "透過 Python 程式新增網誌文章1",</code></div>
+<div class="line number36 index35 alt1"><code class="py spaces">    </code><code class="py comments">"content":"使用 Google Blogger API 可以利用程式新增網誌文章內容1"</code></div>
+<div class="line number37 index36 alt2"><code class="py spaces">    </code><code class="py comments">}</code></div>
+<div class="line number38 index37 alt1"><code class="py spaces">    </code> </div>
+<div class="line number39 index38 alt2"><code class="py spaces">    </code><code class="py comments">insert = posts.insert(blogId='123', body=body)</code></div>
+<div class="line number40 index39 alt1"><code class="py spaces">    </code><code class="py comments">posts_doc = insert.execute()</code></div>
+<div class="line number41 index40 alt2"><code class="py spaces">    </code><code class="py comments">print(posts_doc)</code></div>
+<div class="line number42 index41 alt1"><code class="py spaces">    </code><code class="py comments">'''</code></div>
+<div class="line number43 index42 alt2"> </div>
+<div class="line number44 index43 alt1"><code class="py spaces">    </code><code class="py comments"># 更新網誌文章時的 body</code></div>
+<div class="line number45 index44 alt2"><code class="py spaces">    </code><code class="py plain">body </code><code class="py keyword">=</code> <code class="py plain">{</code></div>
+<div class="line number46 index45 alt1"><code class="py spaces">    </code><code class="py string">"kind"</code><code class="py plain">: </code><code class="py string">"blogger#post"</code><code class="py plain">,</code></div>
+<div class="line number47 index46 alt2"><code class="py spaces">    </code><code class="py string">"title"</code><code class="py plain">: </code><code class="py string">"透過 Python 程式修改網誌文章2"</code><code class="py plain">,</code></div>
+<div class="line number48 index47 alt1"><code class="py spaces">    </code><code class="py string">"content"</code><code class="py plain">: </code><code class="py string">"使用 Google Blogger API 可以利用程式修改網誌文章內容. http://mde.tw/cd2019"</code></div>
+<div class="line number49 index48 alt2"><code class="py spaces">    </code><code class="py plain">}</code></div>
+<div class="line number50 index49 alt1"><code class="py spaces">    </code> </div>
+<div class="line number51 index50 alt2"><code class="py spaces">    </code><code class="py plain">update </code><code class="py keyword">=</code> <code class="py plain">posts.update(blogId</code><code class="py keyword">=</code><code class="py string">"123"</code><code class="py plain">, postId</code><code class="py keyword">=</code><code class="py string">"456"</code><code class="py plain">, body</code><code class="py keyword">=</code><code class="py plain">body, publish</code><code class="py keyword">=</code><code class="py color1">True</code><code class="py plain">)</code></div>
+<div class="line number52 index51 alt1"><code class="py spaces">    </code><code class="py plain">update_doc </code><code class="py keyword">=</code> <code class="py plain">update.execute()</code></div>
+<div class="line number53 index52 alt2"><code class="py spaces">    </code><code class="py functions">print</code><code class="py plain">(update_doc)</code></div>
+<div class="line number54 index53 alt1"> </div>
+<div class="line number55 index54 alt2"><code class="py keyword">except</code><code class="py plain">(client.AccessTokenRefreshError):</code></div>
+<div class="line number56 index55 alt1"><code class="py spaces">    </code><code class="py functions">print</code><code class="py plain">(</code><code class="py string">"error"</code><code class="py plain">)</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<h1>MacBook 操作指南</h1>
+<h4>參考資料:</h4>
+<p><a href="https://drive.google.com/open?id=1zIJkMnFNb0QYsBbzlxAvw8t7hZdZc0hh">Mac OS X for Absolute Beginners.pdf</a><span> </span>(for @gm users only)</p>
+<p><a href="https://drive.google.com/open?id=1hl53RvI1sPFDuF63_TvjuuS-9y9ZQiO3">Learn C on the Mac.pdf</a><span> </span>(for @gm users only)</p>
+<p>這裡以 MacBook Air 2012 年出廠, 硬體規格:</p>
+<p>macOS Catalina Version 10.15.4</p>
+<p>1.8 GHz Dual-Core Intel Core i5</p>
+<p>Memory $GB 1600 MHz DDR3</p>
+<p>Graphics Intel HD Graphics 4000 1536 MB</p>
+<p>的操作為例, 如何存活在機械設計工程系與精密機械工程科的網際內容管理課程.</p>
+<p>由於網際內容管理課程主要以 Ｗindows 10 64 位元操作系統中的 Python 3 可攜程式環境使用為主.</p>
+<h4>從官方網站下載安裝 Python3</h4>
+<p>因此 Catalina 系統中的首要任務, 便是安裝 Python 3:</p>
+<p>在 2020.05.15 從<span> </span><a href="https://www.python.org/downloads/mac-osx/">https://www.python.org/downloads/mac-osx/</a><span> </span>可以下載安裝最新的 Python 3.8.3 解譯環境.</p>
+<h4>安裝 pip3</h4>
+<p>有了 python 3 環境之後, 就可以從 Lanuchpad -&gt; Other -&gt; Terminal 開啟終端機, 並從 get-pip.py 下載用來安裝 pip3 的程式碼, 以終端機上的指令進行安裝:</p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_953551">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js plain">sudo python3 get-pip.py</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>安裝 pip3 之後, 可以安裝 CMSiMDE 所需的 flask, flask_cors, lxml, bs4, markdown, pelican 以及 leo:</p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_139229">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js plain">sudo pip3 install flask flask_cors lxml bs4 markdown pelican leo</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h4>安裝 XQuartz</h4>
+<p>之後, 就可以安裝<span> </span><a href="https://www.xquartz.org/">XQuartz</a>, 以便使用 xterm 替代 terminal.</p>
+<p>接下來假如要使用 SciTE 作為文字編輯器, 建議透過<span> </span><a href="https://www.macports.org/install.php">https://www.macports.org/install.php</a>  先根據 Catalina 操作系統版本安裝 Macports 之後, 再利用:</p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_615742">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js plain">sudo port install scite</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>安裝 SciTE 文字編輯器.</p>
+<p>至此, 再加上 Catalina 原有的 git 指令, 使用者已經可以在 MacBook 上執行與 Windows 10 64 位元操作系統上相同的:</p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_624527">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+<div class="line number4 index3 alt1">4</div>
+<div class="line number5 index4 alt2">5</div>
+<div class="line number6 index5 alt1">6</div>
+<div class="line number7 index6 alt2">7</div>
+<div class="line number8 index7 alt1">8</div>
+<div class="line number9 index8 alt2">9</div>
+<div class="line number10 index9 alt1">10</div>
+<div class="line number11 index10 alt2">11</div>
+<div class="line number12 index11 alt1">12</div>
+<div class="line number13 index12 alt2">13</div>
+<div class="line number14 index13 alt1">14</div>
+<div class="line number15 index14 alt2">15</div>
+<div class="line number16 index15 alt1">16</div>
+<div class="line number17 index16 alt2">17</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js plain">git clone --recurse-submodules</code></div>
+<div class="line number2 index1 alt1"> </div>
+<div class="line number3 index2 alt2"><code class="js plain">git add .</code></div>
+<div class="line number4 index3 alt1"> </div>
+<div class="line number5 index4 alt2"><code class="js plain">git commit -m </code><code class="js string">"commit message"</code></div>
+<div class="line number6 index5 alt1"> </div>
+<div class="line number7 index6 alt2"><code class="js plain">git push</code></div>
+<div class="line number8 index7 alt1"> </div>
+<div class="line number9 index8 alt2"><code class="js plain">git pull</code></div>
+<div class="line number10 index9 alt1"> </div>
+<div class="line number11 index10 alt2"><code class="js plain">git submodule add</code></div>
+<div class="line number12 index11 alt1"> </div>
+<div class="line number13 index12 alt2"><code class="js plain">git remote add</code></div>
+<div class="line number14 index13 alt1"> </div>
+<div class="line number15 index14 alt2"><code class="js plain">git branch</code></div>
+<div class="line number16 index15 alt1"> </div>
+<div class="line number17 index16 alt2"><code class="js plain">git merge</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>等指令, 只是在執行 python 程式時, 必須使用:</p>
+<div>
+<div class="syntaxhighlighter js" id="highlighter_713729">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="gutter">
+<div class="line number1 index0 alt2">1</div>
+<div class="line number2 index1 alt1">2</div>
+<div class="line number3 index2 alt2">3</div>
+</td>
+<td class="code">
+<div class="container">
+<div class="line number1 index0 alt2"><code class="js plain">python3 wsgi.py</code></div>
+<div class="line number2 index1 alt1"> </div>
+<div class="line number3 index2 alt2"><code class="js plain">pip3 install certain_module</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>否則直接使用 python 執行, 將會用 Python 2.7 環境執行而產生錯誤.</p>
+<h4>其他建議安裝套件</h4>
+<p>Microsoft Remote Desktop</p>
+<p>Firefox</p>
+<p>OBS</p>
+<p>Visual Studio Code</p>
+<p><a href="https://drive.google.com/open?id=1VeO6HfA3eq8kn5q9m2iJ8SdGCVwUhizo">Visual Studio Code Distilled.pdf</a><span> </span>(for @gm users only)</p>
+<p>Flutter (Dart)</p>
+<h4>其他提示</h4>
+<p>Command + Shift + . (toggle hidden folders and files)</p>
+<h1>W15-W18</h1>
+<h1>未來規劃</h1>
+<h4>二技招生</h4>
+<p><a href="https://techexpo.moe.edu.tw/search/profile_committee.php?comid=comd01">二技日間部申請入學</a></p>
+<h4>大學轉學考</h4>
+<p><a href="https://edu.law.moe.gov.tw/LawContent.aspx?id=FL008652">大學辦理轉學招生審核作業要點</a></p>
+<h4>進入職場</h4>
+<p><a href="https://edu.law.moe.gov.tw/LawContent.aspx?id=GL001611&amp;KeyWord=%e4%ba%94%e5%b0%88">教育部補助大專校院辦理五年制專科學校畢業生投入職場要點</a></p>
+<h4>畢業三年後報考碩士班</h4>
+<p><a href="https://edu.law.moe.gov.tw/LawContent.aspx?id=FL008644&amp;KeyWord=%e5%a4%a7%e5%ad%b8%e5%90%8c%e7%ad%89%e5%ad%b8%e5%8a%9b">大學同等學力第五條規定</a></p>
+<h4><a href="https://www.google.com/search?client=firefox-b-1-d&amp;ei=JgfIXpb8B9SXr7wPlOegoAY&amp;q=%E4%BA%94%E5%B0%88%E7%95%A2%E6%A5%AD%E5%87%BA%E5%9C%8B%E7%95%99%E5%AD%B8&amp;oq=%E4%BA%94%E5%B0%88%E7%95%A2%E6%A5%AD%E5%87%BA%E5%9C%8B%E7%95%99%E5%AD%B8&amp;gs_lcp=CgZwc3ktYWIQDFAAWABg3voBaABwAHgAgAEAiAEAkgEAmAEAqgEHZ3dzLXdpeg&amp;sclient=psy-ab&amp;ved=0ahUKEwiWp9b4-sfpAhXUy4sBHZQzCGQQ4dUDCAs">出國留學</a></h4>
+</div>
+</div>
+</div>
+</div>
